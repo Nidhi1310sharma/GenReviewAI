@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cafe Aroma | Tell Us More</title>
+<link rel="stylesheet" href="../shared/shared.css">
+  <link rel="stylesheet" href="customer.css">
+</head>
+<body class="landing-body">
+
+  <main class="landing-wrapper">
+    <div class="landing-card questionnaire-card">
+
+      <div class="brand-block">
+        <div class="logo-ring">
+          <div class="logo-placeholder" id="bizLogo">CA</div>
+        </div>
+
+        <h2 class="business-name" id="bizName">Cafe Aroma</h2>
+
+        <div class="rating-badge"><span class="rating-star">★</span><span id="bizRating">4.8</span> Google Rating</div>
+      </div>
+
+      <div class="step-progress">
+        <span class="step-seg filled"></span>
+        <span class="step-seg"></span>
+      </div>
+      <span class="page-eyebrow">Step 1 of 2</span>
+
+      <h1 class="welcome-heading">Tell us about your experience</h1>
+
+      <p class="landing-desc">
+        Help us generate a personalized review by answering a few quick questions.
+      </p>
+
+      <form id="tagsForm" class="questionnaire-form">
+
+        <!-- Category-specific rating groups are injected here at runtime,
+             based on business.category (see question-config.js + tags.js) -->
+        <div id="questionGroups"></div>
+
+        <div class="q-group">
+          <label class="q-label"><span class="q-icon">💬</span>Anything you loved? <span class="optional-tag">(Optional)</span></label>
+          <textarea
+            id="lovedText"
+            class="loved-textarea"
+            placeholder="Tell us what made your experience memorable..."
+            rows="3"
+          ></textarea>
+        </div>
+
+        <p id="validationMsg" class="validation-msg"></p>
+
+        <button type="submit" class="cta-btn">Continue</button>
+
+      </form>
+
+      <p class="powered-by">Powered by <span>Graphura's ReviewFlow</span></p>
+
+    </div>
+  </main>
+
+<script src="../shared/business-config.js"></script>
+<script src="../shared/constants.js"></script>
+<script src="../shared/utils.js"></script>
+<script src="../shared/question-config.js"></script>
+<script src="js/tags.js"></script>
+</body>
+</html>

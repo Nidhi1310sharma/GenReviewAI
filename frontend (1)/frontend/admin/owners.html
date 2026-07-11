@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graphura ReviewFlow | Owner Management</title>
+<link rel="stylesheet" href="../shared/shared.css?v=20260705">
+<link rel="stylesheet" href="admin.css?v=20260705">
+</head>
+<body class="landing-body admin-body">
+
+  <div class="admin-shell">
+
+    <header class="admin-header">
+      <div class="admin-header-brand">
+        <img src="../admin/graphura-logo.png" alt="Graphura logo" class="admin-header-logo">
+        <div class="admin-header-brand-text">
+          <span class="admin-header-product">Graphura's ReviewFlow</span>
+          <span class="admin-header-role">Owner Management</span>
+        </div>
+      </div>
+
+      <div class="admin-header-meta">
+        <span class="admin-header-date" id="headerDate"></span>
+        <div class="admin-header-avatar" title="Administrator">A</div>
+        <button id="logoutBtn" class="admin-logout-btn" type="button">Logout</button>
+      </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="admin-nav-tabs" id="adminNavTabs">
+      <a class="admin-nav-tab" href="dashboard.html" data-nav="dashboard">Dashboard</a>
+      <a class="admin-nav-tab" href="businesses.html" data-nav="businesses">Business Management</a>
+      <a class="admin-nav-tab active" href="owners.html" data-nav="owners">Owner Management</a>
+      <a class="admin-nav-tab" href="reviews.html" data-nav="reviews">Review Monitoring</a>
+      <button class="admin-nav-tab" type="button" data-nav="analytics">Platform Analytics</button>
+      <button class="admin-nav-tab" type="button" data-nav="settings">Platform Settings</button>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="admin-page-header">
+      <div class="admin-page-header-text">
+        <span class="admin-page-eyebrow">Graphura ReviewFlow</span>
+        <h1 class="admin-page-title">Owner Management</h1>
+        <p class="admin-page-subtitle">Manage business owners, access permissions and account status.</p>
+      </div>
+      <div class="admin-page-header-actions">
+        <button class="admin-btn" type="button" id="exportCsvBtn"><span>📊</span>Export CSV</button>
+        <button class="admin-btn primary" type="button" id="addOwnerBtn"><span>➕</span>Add Owner</button>
+      </div>
+    </section>
+
+    <!-- Owner KPI Cards -->
+    <section class="admin-kpi-grid" id="ownerKpiGrid">
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon">👤</div>
+        <div class="admin-kpi-value" data-count="238">0</div>
+        <div class="admin-kpi-label">Total Owners</div>
+      </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon green">✅</div>
+        <div class="admin-kpi-value" data-count="221">0</div>
+        <div class="admin-kpi-label">Active Owners</div>
+      </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon gold">⏳</div>
+        <div class="admin-kpi-value" data-count="9">0</div>
+        <div class="admin-kpi-label">Pending Invitations</div>
+      </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon" style="background: rgba(225,72,63,0.1);">⛔</div>
+        <div class="admin-kpi-value" data-count="8">0</div>
+        <div class="admin-kpi-label">Suspended Accounts</div>
+      </div>
+    </section>
+
+    <!-- Main layout: Table + Sidebar -->
+    <div class="admin-biz-layout">
+
+      <div>
+        <!-- Search + Filters -->
+        <section class="admin-toolbar">
+          <div class="admin-search-wrap">
+            <span class="admin-search-icon">🔍</span>
+            <input type="text" class="admin-search-input" id="ownerSearchInput" placeholder="Search owners...">
+          </div>
+        </section>
+
+        <section class="admin-chips-row" id="ownerFilterChips" style="margin-bottom: 18px;">
+          <button class="admin-chip active" type="button" data-filter="all">All</button>
+          <button class="admin-chip" type="button" data-filter="status:active">Active</button>
+          <button class="admin-chip" type="button" data-filter="status:pending">Pending</button>
+          <button class="admin-chip" type="button" data-filter="status:suspended">Suspended</button>
+          <button class="admin-chip" type="button" data-filter="category:Restaurant">Restaurant</button>
+          <button class="admin-chip" type="button" data-filter="category:Cafe">Cafe</button>
+          <button class="admin-chip" type="button" data-filter="category:Salon">Salon</button>
+          <button class="admin-chip" type="button" data-filter="category:Retail">Retail</button>
+          <button class="admin-chip" type="button" data-filter="category:Clinic">Clinic</button>
+        </section>
+
+        <!-- Owner Table -->
+        <section class="admin-table-section admin-card">
+          <h2 class="admin-section-title">All Owners</h2>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Owner</th>
+                  <th>Owner ID</th>
+                  <th>Business</th>
+                  <th>Category</th>
+                  <th>Email</th>
+                  <th>Last Login</th>
+                  <th>Access</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="ownerTableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="admin-empty-state" id="ownerEmptyState">
+            <div class="admin-empty-icon">🔍</div>
+            <div class="admin-empty-title">No owners found.</div>
+            <div class="admin-empty-subtitle">Try changing your search or filters.</div>
+          </div>
+
+          <div class="admin-pagination" id="ownerPagination">
+            <button class="admin-page-btn" type="button" data-page="prev">Previous</button>
+            <button class="admin-page-btn active" type="button" data-page="1">1</button>
+            <button class="admin-page-btn" type="button" data-page="2">2</button>
+            <button class="admin-page-btn" type="button" data-page="3">3</button>
+            <button class="admin-page-btn" type="button" data-page="next">Next</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="admin-biz-sidebar">
+
+        <div class="admin-card">
+          <h2 class="admin-section-title">Owner Activity</h2>
+          <div class="admin-insights-list" id="ownerActivityList"></div>
+        </div>
+
+        <div class="admin-card">
+          <h2 class="admin-section-title">Role Distribution</h2>
+          <div class="admin-progress-list" id="ownerRoleProgress"></div>
+        </div>
+
+        <div class="admin-card">
+          <h2 class="admin-section-title">Recent Logins</h2>
+          <div class="admin-activity-list" id="ownerRecentLogins"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- AI Owner Insights -->
+    <section class="admin-ai-card">
+      <div class="admin-ai-header">
+        <span class="admin-ai-icon">✨</span>
+        <h2 class="admin-ai-title">AI Owner Insights</h2>
+      </div>
+      <div class="admin-ai-grid" id="ownerAiGrid">
+        <div class="admin-ai-stat">
+          <span class="admin-ai-stat-value">John Smith</span>
+          <span class="admin-ai-stat-label">Most Active Owner</span>
+        </div>
+        <div class="admin-ai-stat">
+          <span class="admin-ai-stat-value">8</span>
+          <span class="admin-ai-stat-label">Least Active Owners</span>
+        </div>
+        <div class="admin-ai-stat">
+          <span class="admin-ai-stat-value">5</span>
+          <span class="admin-ai-stat-label">Owners Needing Follow-up</span>
+        </div>
+        <div class="admin-ai-stat">
+          <span class="admin-ai-stat-value">4.8/week</span>
+          <span class="admin-ai-stat-label">Average Login Frequency</span>
+        </div>
+      </div>
+      <div class="admin-ai-recommendation">
+        <span>💡</span>
+        <span><strong>Recommendation:</strong> Follow up with inactive owners to improve platform adoption.</span>
+      </div>
+    </section>
+
+    <!-- Footer Actions -->
+    <section class="admin-footer-actions">
+      <button type="button" class="admin-footer-btn" id="exportCsvFooterBtn"><span>📊</span>Export CSV</button>
+      <button type="button" class="admin-footer-btn" id="exportPdfBtn"><span>📄</span>Export PDF</button>
+      <button type="button" class="admin-footer-btn primary" id="refreshDataBtn"><span>🔄</span>Refresh Data</button>
+    </section>
+
+  </div>
+
+  <!-- View Owner Modal -->
+  <div class="admin-modal-overlay" id="viewModalOverlay">
+    <div class="admin-modal">
+      <div class="admin-view-header">
+        <div class="admin-view-avatar admin-owner-avatar" id="viewAvatar">JS</div>
+        <div class="admin-view-header-text">
+          <div class="admin-view-name" id="viewName">John Smith</div>
+          <div class="admin-view-id" id="viewOwnerId">OWN-001</div>
+        </div>
+        <button class="admin-modal-close" type="button" data-close="view" style="margin-left:auto;">✕</button>
+      </div>
+      <div class="admin-view-grid" id="viewGrid"></div>
+      <div class="admin-modal-footer">
+        <button class="admin-btn" type="button" id="viewResetPasswordBtn">Reset Password</button>
+        <button class="admin-btn" type="button" data-close="view">Close</button>
+        <button class="admin-btn primary" type="button" id="viewEditBtn">Edit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Owner Modal -->
+  <div class="admin-modal-overlay" id="editModalOverlay">
+    <div class="admin-modal">
+      <div class="admin-modal-header">
+        <h2 class="admin-modal-title">Edit Owner</h2>
+        <button class="admin-modal-close" type="button" data-close="edit">✕</button>
+      </div>
+      <form class="admin-modal-form" id="editForm">
+        <div class="form-field">
+          <label class="form-label">Owner Name</label>
+          <input type="text" class="form-input" id="editName" required>
+        </div>
+        <div class="form-row-2">
+          <div class="form-field">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" id="editEmail" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Phone</label>
+            <input type="text" class="form-input" id="editPhone">
+          </div>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Assigned Business</label>
+          <input type="text" class="form-input" id="editBusinessName" required>
+        </div>
+        <div class="form-row-2">
+          <div class="form-field">
+            <label class="form-label">Status</label>
+            <select class="form-input" id="editStatus">
+              <option value="active">Active</option>
+              <option value="pending">Pending</option>
+              <option value="suspended">Suspended</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Role</label>
+            <select class="form-input" id="editRole">
+              <option>Primary Owner</option>
+              <option>Manager</option>
+              <option>Read Only</option>
+            </select>
+          </div>
+        </div>
+      </form>
+      <div class="admin-modal-footer">
+        <button class="admin-btn" type="button" id="editResetPasswordBtn">Reset Password</button>
+        <button class="admin-btn" type="button" data-close="edit">Cancel</button>
+        <button class="admin-btn primary" type="button" id="saveEditBtn">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Owner Modal -->
+  <div class="admin-modal-overlay" id="addModalOverlay">
+    <div class="admin-modal">
+      <div class="admin-modal-header">
+        <h2 class="admin-modal-title">Add Owner</h2>
+        <button class="admin-modal-close" type="button" data-close="add">✕</button>
+      </div>
+      <form class="admin-modal-form" id="addForm">
+        <div class="form-field">
+          <label class="form-label">Owner Name</label>
+          <input type="text" class="form-input" id="addName" placeholder="e.g. Aditya Bose" required>
+        </div>
+        <div class="form-row-2">
+          <div class="form-field">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" id="addEmail" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Phone</label>
+            <input type="text" class="form-input" id="addPhone" placeholder="+91 98765 43210">
+          </div>
+        </div>
+        <div class="form-row-2">
+          <div class="form-field">
+            <label class="form-label">Assign Business</label>
+            <select class="form-input" id="addBusiness"></select>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Role</label>
+            <select class="form-input" id="addRole">
+              <option>Primary Owner</option>
+              <option>Manager</option>
+              <option>Read Only</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row-2">
+          <div class="form-field">
+            <label class="form-label">Status</label>
+            <select class="form-input" id="addStatus">
+              <option value="pending">Pending</option>
+              <option value="active">Active</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Owner ID</label>
+            <input type="text" class="form-input" id="addOwnerId" disabled>
+          </div>
+        </div>
+        <label class="admin-checkbox-row">
+          <input type="checkbox" id="addSendInvite" checked>
+          <span>Send Invitation Email</span>
+        </label>
+      </form>
+      <div class="admin-modal-footer">
+        <button class="admin-btn" type="button" data-close="add">Cancel</button>
+        <button class="admin-btn primary" type="button" id="createOwnerBtn">Create Owner</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm Modal (Suspend / Resend Invite) -->
+  <div class="admin-modal-overlay" id="confirmModalOverlay">
+    <div class="admin-modal admin-modal-sm">
+      <div class="admin-confirm-icon" id="confirmIcon">⛔</div>
+      <h2 class="admin-modal-title" id="confirmTitle">Suspend Owner?</h2>
+      <p class="admin-confirm-text" id="confirmText">This owner will no longer be able to access Graphura ReviewFlow.</p>
+      <div class="admin-modal-footer">
+        <button class="admin-btn" type="button" data-close="confirm">Cancel</button>
+        <button class="admin-btn primary" type="button" id="confirmActionBtn">Suspend</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reset Password Confirm Modal -->
+  <div class="admin-modal-overlay" id="resetPasswordModalOverlay">
+    <div class="admin-modal admin-modal-sm">
+      <div class="admin-confirm-icon">🔑</div>
+      <h2 class="admin-modal-title">Reset owner's password?</h2>
+      <p class="admin-confirm-text">A temporary password will be emailed.</p>
+      <div class="admin-modal-footer">
+        <button class="admin-btn" type="button" data-close="resetPassword">Cancel</button>
+        <button class="admin-btn primary" type="button" id="confirmResetPasswordBtn">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+<script src="../shared/constants.js?v=20260705"></script>
+<script src="../shared/utils.js?v=20260705"></script>
+<script src="../shared/mock-data.js?v=20260705"></script>
+<script src="js/owners.js?v=20260705"></script>
+</body>
+</html>

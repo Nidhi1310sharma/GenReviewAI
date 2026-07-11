@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graphura ReviewFlow | Owner Dashboard</title>
+<link rel="stylesheet" href="../shared/shared.css">
+  <link rel="stylesheet" href="owner.css">
+</head>
+<body class="landing-body dashboard-body">
+
+  <div class="dashboard-shell">
+
+    <header class="dashboard-header">
+      <div class="header-brand">
+        <div class="logo-placeholder small-logo" id="headerLogo">CA</div>
+        <div class="header-brand-text">
+          <span class="header-product">Graphura's ReviewFlow</span>
+          <span class="header-business" id="headerBusinessName">Cafe Aroma</span>
+        </div>
+      </div>
+
+      <div class="header-meta">
+        <span class="header-date" id="headerDate"></span>
+        <div class="header-avatar" title="Owner" id="headerAvatar">CA</div>
+        <button id="logoutBtn" class="logout-btn" type="button">Logout</button>
+      </div>
+    </header>
+
+    <section class="welcome-section">
+      <h1 class="welcome-heading dashboard-heading">Welcome back, <span id="welcomeBusinessName">Cafe Aroma</span>!</h1>
+      <p class="landing-desc dashboard-subtitle">Here's an overview of today's customer feedback.</p>
+    </section>
+
+    <section class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">📝</div>
+        <div class="stat-value">24</div>
+        <div class="stat-label">Today's Reviews</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon gold">⭐</div>
+        <div class="stat-value">4.8</div>
+        <div class="stat-label">Average Rating</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">✨</div>
+        <div class="stat-value">152</div>
+        <div class="stat-label">AI Reviews Generated</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⏳</div>
+        <div class="stat-value">8</div>
+        <div class="stat-label">Pending Responses</div>
+      </div>
+    </section>
+
+    <section class="quick-actions-section">
+      <h2 class="section-title">Quick Actions</h2>
+      <div class="quick-actions-grid">
+        <button class="action-card" data-action="view-reviews" type="button">
+          <span class="action-icon">📋</span>
+          <span class="action-label">View Reviews</span>
+        </button>
+        <button class="action-card" data-action="download-qr" type="button">
+          <span class="action-icon">📱</span>
+          <span class="action-label">Download QR Code</span>
+        </button>
+        <button class="action-card" data-action="analytics" type="button">
+          <span class="action-icon">📊</span>
+          <span class="action-label">Analytics</span>
+        </button>
+        <button class="action-card" data-action="settings" type="button">
+          <span class="action-icon">⚙️</span>
+          <span class="action-label">Business Settings</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="reviews-performance-grid">
+
+      <div class="recent-reviews-section">
+        <h2 class="section-title">Recent Reviews</h2>
+
+        <div class="owner-review-list">
+
+          <div class="owner-review-card">
+            <div class="owner-review-top">
+              <div class="reviewer-initials">RS</div>
+              <div class="owner-review-meta">
+                <div class="owner-review-stars">★★★★★</div>
+                <span class="owner-review-time">2 hours ago</span>
+              </div>
+              <span class="sentiment-badge sentiment-excellent">Excellent</span>
+            </div>
+            <p class="owner-review-text">The food was absolutely delicious and the staff were so attentive throughout our visit...</p>
+          </div>
+
+          <div class="owner-review-card">
+            <div class="owner-review-top">
+              <div class="reviewer-initials">AK</div>
+              <div class="owner-review-meta">
+                <div class="owner-review-stars">★★★★★</div>
+                <span class="owner-review-time">4 hours ago</span>
+              </div>
+              <span class="sentiment-badge sentiment-excellent">Excellent</span>
+            </div>
+            <p class="owner-review-text">Loved the ambience, perfect place for a family dinner. Will definitely be back soon...</p>
+          </div>
+
+          <div class="owner-review-card">
+            <div class="owner-review-top">
+              <div class="reviewer-initials">MP</div>
+              <div class="owner-review-meta">
+                <div class="owner-review-stars">★★★★☆</div>
+                <span class="owner-review-time">6 hours ago</span>
+              </div>
+              <span class="sentiment-badge sentiment-good">Good</span>
+            </div>
+            <p class="owner-review-text">Good food and friendly service, though we waited a little longer than expected...</p>
+          </div>
+
+          <div class="owner-review-card">
+            <div class="owner-review-top">
+              <div class="reviewer-initials">TN</div>
+              <div class="owner-review-meta">
+                <div class="owner-review-stars">★★★★★</div>
+                <span class="owner-review-time">Yesterday</span>
+              </div>
+              <span class="sentiment-badge sentiment-excellent">Excellent</span>
+            </div>
+            <p class="owner-review-text">Fantastic experience from start to finish. The staff went above and beyond for us...</p>
+          </div>
+
+          <div class="owner-review-card">
+            <div class="owner-review-top">
+              <div class="reviewer-initials">JD</div>
+              <div class="owner-review-meta">
+                <div class="owner-review-stars">★★★☆☆</div>
+                <span class="owner-review-time">Yesterday</span>
+              </div>
+              <span class="sentiment-badge sentiment-average">Average</span>
+            </div>
+            <p class="owner-review-text">Food was decent but the place was a bit noisy for our taste. Staff were polite though...</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="performance-section">
+        <h2 class="section-title">Performance Summary</h2>
+
+        <div class="performance-card">
+
+          <div class="performance-row">
+            <div class="performance-label-row">
+              <span class="performance-label">Customer Satisfaction</span>
+              <span class="performance-value">92%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width: 92%;"></div>
+            </div>
+          </div>
+
+          <div class="performance-row">
+            <div class="performance-label-row">
+              <span class="performance-label">Reviews This Month</span>
+              <span class="performance-value">248</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width: 78%;"></div>
+            </div>
+          </div>
+
+          <div class="performance-row">
+            <div class="performance-label-row">
+              <span class="performance-label">Google Rating</span>
+              <span class="performance-value">4.8 / 5</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill gold-fill" style="width: 96%;"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+<script src="../shared/business-config.js"></script>
+<script src="../shared/constants.js"></script>
+<script src="../shared/utils.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

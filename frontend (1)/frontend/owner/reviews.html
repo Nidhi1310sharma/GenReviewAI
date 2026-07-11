@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graphura ReviewFlow | Reviews Management</title>
+<link rel="stylesheet" href="../shared/shared.css?v=20260705">
+  <link rel="stylesheet" href="owner.css?v=20260705">
+</head>
+<body class="landing-body dashboard-body">
+
+  <div class="dashboard-shell settings-shell reviews-shell">
+
+    <header class="settings-header">
+      <div class="settings-header-left">
+        <a href="dashboard.html" class="back-link">← Back to Dashboard</a>
+        <h1 class="welcome-heading dashboard-heading settings-title">Reviews Management</h1>
+        <p class="landing-desc dashboard-subtitle">View, search and manage customer reviews.</p>
+      </div>
+      <div class="settings-header-right">
+        <button type="button" class="cta-btn export-pdf-btn" id="exportPdfBtn">
+            <span class="qr-btn-icon">📄</span>Export PDF
+        </button>
+     </div>
+    </header>
+
+    <!-- Statistics -->
+    <section class="stats-grid reviews-stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">📝</div>
+        <div class="stat-value">24</div>
+        <div class="stat-label">Today's Reviews</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon gold">⭐</div>
+        <div class="stat-value">4.8</div>
+        <div class="stat-label">Average Rating</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">👍</div>
+        <div class="stat-value">91%</div>
+        <div class="stat-label">Positive Reviews</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">👎</div>
+        <div class="stat-value">9%</div>
+        <div class="stat-label">Negative Reviews</div>
+      </div>
+    </section>
+
+    <!-- Search -->
+    <div class="reviews-search-bar">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" class="search-input" placeholder="Search customer, keyword or review...">
+    </div>
+
+    <!-- Filter Chips -->
+    <div class="filter-chips" id="filterChips">
+      <button type="button" class="filter-chip active" data-filter="all">All</button>
+      <button type="button" class="filter-chip" data-filter="5star">★★★★★</button>
+      <button type="button" class="filter-chip" data-filter="4star">★★★★☆</button>
+      <button type="button" class="filter-chip" data-filter="3star">★★★☆☆</button>
+      <button type="button" class="filter-chip" data-filter="positive">Positive</button>
+      <button type="button" class="filter-chip" data-filter="negative">Negative</button>
+      <button type="button" class="filter-chip" data-filter="newest">Newest</button>
+      <button type="button" class="filter-chip" data-filter="oldest">Oldest</button>
+    </div>
+
+    <!-- Reviews + AI Summary Layout -->
+    <div class="reviews-layout">
+
+      <div class="reviews-list" id="reviewsList"></div>
+
+      <aside class="ai-summary-panel">
+        <div class="ai-summary-header">
+          <span class="ai-summary-icon">✨</span>
+          <h2 class="ai-summary-title">AI Insights</h2>
+        </div>
+
+        <div class="ai-summary-block">
+          <p class="ai-summary-label">Customers Love</p>
+          <ul class="ai-summary-list ai-summary-positive">
+            <li>✓ Food Quality</li>
+            <li>✓ Staff Behaviour</li>
+            <li>✓ Ambience</li>
+          </ul>
+        </div>
+
+        <div class="ai-summary-block">
+          <p class="ai-summary-label">Needs Improvement</p>
+          <ul class="ai-summary-list ai-summary-negative">
+            <li>• Waiting Time</li>
+            <li>• Parking</li>
+          </ul>
+        </div>
+
+        <div class="ai-summary-block ai-summary-sentiment">
+          <div class="sentiment-stat">
+            <span class="sentiment-stat-label">Overall Sentiment</span>
+            <span class="sentiment-stat-value positive-text">Positive</span>
+          </div>
+          <div class="sentiment-stat">
+            <span class="sentiment-stat-label">Confidence</span>
+            <span class="sentiment-stat-value">94%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" style="width: 94%;"></div>
+          </div>
+        </div>
+
+        <p class="ai-summary-updated">Last updated<br>Today • 2:35 PM</p>
+      </aside>
+
+    </div>
+
+    <!-- Empty State (hidden by default) -->
+    <div class="empty-state" id="emptyState" hidden>
+      <div class="empty-state-icon">🗒️</div>
+      <h3 class="empty-state-title">No reviews found</h3>
+      <p class="empty-state-subtitle">Try changing your filters or search.</p>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" id="pagination">
+      <button type="button" class="pagination-btn" id="prevPageBtn">Previous</button>
+      <button type="button" class="pagination-page active" data-page="1">1</button>
+      <button type="button" class="pagination-page" data-page="2">2</button>
+      <button type="button" class="pagination-page" data-page="3">3</button>
+      <button type="button" class="pagination-btn" id="nextPageBtn">Next</button>
+    </div>
+
+    <!-- Printable Report (hidden on screen, shown only when printing) -->
+    <div class="print-report" id="printReportArea">
+      <div class="print-report-header">
+        <h1>Graphura ReviewFlow</h1>
+        <p id="printReportBizName">Reviews Report — Cafe Aroma</p>
+        <p class="print-report-date" id="printReportDate"></p>
+      </div>
+
+      <div class="print-report-stats">
+        <div><strong>24</strong><span>Today's Reviews</span></div>
+        <div><strong>4.8</strong><span>Average Rating</span></div>
+        <div><strong>91%</strong><span>Positive Reviews</span></div>
+        <div><strong>9%</strong><span>Negative Reviews</span></div>
+      </div>
+
+      <table class="print-report-table" id="printReportTable">
+        <thead>
+          <tr>
+            <th>Customer</th>
+            <th>Rating</th>
+            <th>Sentiment</th>
+            <th>Review</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="printReportTableBody"></tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- View Review Modal -->
+  <div class="modal-overlay" id="viewModalOverlay">
+    <div class="modal-box review-modal-box" role="dialog" aria-modal="true" aria-labelledby="viewModalTitle">
+      <h3 class="modal-title" id="viewModalTitle">Review Details</h3>
+
+      <div class="review-detail-grid" id="viewModalContent"></div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" id="viewModalCloseBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reply Modal -->
+  <div class="modal-overlay" id="replyModalOverlay">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="replyModalTitle">
+      <h3 class="modal-title" id="replyModalTitle">Reply to Review</h3>
+      <textarea id="replyTextarea" class="form-input form-textarea" rows="4" placeholder="Write your reply..."></textarea>
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" id="replyCancelBtn">Cancel</button>
+        <button type="button" class="cta-btn modal-cta" id="replySendBtn">Send Reply</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="modal-overlay" id="deleteModalOverlay">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+      <h3 class="modal-title" id="deleteModalTitle">Delete this review?</h3>
+      <p class="modal-text">This action cannot be undone.</p>
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" id="deleteCancelBtn">Cancel</button>
+        <button type="button" class="btn-danger" id="deleteConfirmBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+<script src="../shared/business-config.js?v=20260705"></script>
+<script src="../shared/utils.js?v=20260705"></script>
+<script src="../shared/mock-data.js?v=20260705"></script>
+<script src="js/reviews.js?v=20260705"></script>
+</body>
+</html>

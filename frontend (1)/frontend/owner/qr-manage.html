@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graphura ReviewFlow | QR Code Management</title>
+<link rel="stylesheet" href="../shared/shared.css?v=20260705">
+  <link rel="stylesheet" href="owner.css?v=20260705">
+</head>
+<body class="landing-body dashboard-body">
+
+  <div class="dashboard-shell settings-shell qr-shell">
+
+    <header class="settings-header">
+      <div class="settings-header-left">
+        <a href="dashboard.html" class="back-link">← Back to Dashboard</a>
+        <h1 class="welcome-heading dashboard-heading settings-title">QR Code Management</h1>
+        <p class="landing-desc dashboard-subtitle">Generate and manage review QR codes for your business.</p>
+      </div>
+      <div class="settings-header-right">
+        <span class="settings-business-pill" id="bizPill">Cafe Aroma · Restaurant</span>
+        <span class="status-badge status-active"><span class="status-dot"></span>Active</span>
+      </div>
+    </header>
+
+    <!-- Business Information Card -->
+    <section class="settings-card qr-info-card">
+      <div class="qr-info-grid">
+        <div class="qr-info-item">
+          <span class="qr-info-label">Business Name</span>
+          <span class="qr-info-value" id="qrBizName">Cafe Aroma</span>
+        </div>
+        <div class="qr-info-item">
+          <span class="qr-info-label">Category</span>
+          <span class="qr-info-value" id="qrBizCategory">Restaurant</span>
+        </div>
+        <div class="qr-info-item">
+          <span class="qr-info-label">Business ID</span>
+          <span class="qr-info-value" id="qrBizId">CAFE001</span>
+        </div>
+        <div class="qr-info-item">
+          <span class="qr-info-label">Review Link</span>
+          <span class="qr-info-value qr-info-link" id="qrBizLink">https://graphura.ai/r/cafe-aroma</span>
+        </div>
+        <div class="qr-info-item">
+          <span class="qr-info-label">Last Generated</span>
+          <span class="qr-info-value" id="qrLastGenerated">Today, 2:35 PM</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main QR Card -->
+    <section class="qr-main-card" id="printArea">
+      <div class="qr-code-frame" id="qrFrame">
+        <img id="qrImage" class="qr-image" src="" alt="QR code linking to the review page">
+        <div class="qr-loading-overlay" id="qrLoadingOverlay" hidden>
+          <div class="ai-loading-spinner">
+            <span></span><span></span><span></span>
+          </div>
+          <p class="ai-loading-text">Generating new QR...</p>
+        </div>
+      </div>
+      <h2 class="qr-scan-title">Scan to leave a review</h2>
+      <p class="qr-helper-text">Customers can simply scan this QR code to submit feedback using Graphura ReviewFlow.</p>
+
+      <div class="qr-action-grid no-print">
+        <button type="button" class="btn-secondary qr-action-btn" id="generateQrBtn">
+          <span class="qr-btn-icon">🔄</span>Generate New QR
+        </button>
+        <button type="button" class="btn-secondary qr-action-btn" id="downloadPngBtn">
+          <span class="qr-btn-icon">⬇️</span>Download PNG
+        </button>
+        <button type="button" class="btn-secondary qr-action-btn" id="downloadSvgBtn">
+          <span class="qr-btn-icon">🧩</span>Download SVG
+        </button>
+        <button type="button" class="btn-secondary qr-action-btn" id="printQrBtn">
+          <span class="qr-btn-icon">🖨️</span>Print QR
+        </button>
+        <button type="button" class="btn-secondary qr-action-btn" id="copyLinkBtn">
+          <span class="qr-btn-icon">🔗</span>Copy Review Link
+        </button>
+      </div>
+    </section>
+
+    <!-- QR Analytics -->
+    <section class="no-print">
+      <h2 class="section-title">QR Analytics</h2>
+      <div class="stats-grid qr-stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">📷</div>
+          <div class="stat-value">45</div>
+          <div class="stat-label">QR Scans Today</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📈</div>
+          <div class="stat-value">1,278</div>
+          <div class="stat-label">Total QR Scans</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">✨</div>
+          <div class="stat-value">421</div>
+          <div class="stat-label">Reviews Submitted</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QR Usage Guide -->
+    <section class="settings-card no-print">
+      <h2 class="section-title">Recommended Placement</h2>
+      <div class="placement-checklist">
+        <div class="placement-item"><span class="placement-check">✓</span>Table Stand</div>
+        <div class="placement-item"><span class="placement-check">✓</span>Billing Counter</div>
+        <div class="placement-item"><span class="placement-check">✓</span>Entrance Door</div>
+        <div class="placement-item"><span class="placement-check">✓</span>Menu Card</div>
+        <div class="placement-item"><span class="placement-check">✓</span>Takeaway Bag</div>
+        <div class="placement-item"><span class="placement-check">✓</span>Payment Counter</div>
+      </div>
+      <p class="ai-pref-note">Better placement increases customer review conversion.</p>
+    </section>
+
+    <!-- Live Preview Mockups -->
+    <section class="no-print">
+      <h2 class="section-title">Live Preview</h2>
+      <div class="preview-mockup-grid">
+
+        <div class="mockup-card">
+          <p class="mockup-label">Table Stand</p>
+          <div class="mockup-visual table-stand-visual">
+            <div class="mockup-stand-card">
+              <span class="mockup-brand">Graphura</span>
+              <div class="mockup-qr-box">
+                <img id="mockupQr1" src="" alt="QR preview">
+              </div>
+              <span class="mockup-scan-me">Scan Me</span>
+            </div>
+            <div class="mockup-stand-base"></div>
+          </div>
+        </div>
+
+        <div class="mockup-card">
+          <p class="mockup-label">Restaurant Poster</p>
+          <div class="mockup-visual poster-visual">
+            <span class="mockup-poster-brand" id="mockupPosterBrand">Cafe Aroma</span>
+            <div class="mockup-qr-box mockup-qr-box-lg">
+              <img id="mockupQr2" src="" alt="QR preview">
+            </div>
+            <span class="mockup-poster-text">We'd love your feedback</span>
+            <span class="mockup-poster-sub">Powered by Graphura ReviewFlow</span>
+          </div>
+        </div>
+
+        <div class="mockup-card">
+          <p class="mockup-label">Counter Sticker</p>
+          <div class="mockup-visual sticker-visual">
+            <div class="mockup-sticker">
+              <div class="mockup-qr-box mockup-qr-box-sm">
+                <img id="mockupQr3" src="" alt="QR preview">
+              </div>
+              <span class="mockup-sticker-text">Scan to Review</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="settings-card how-it-works-card no-print">
+      <h2 class="section-title">How Graphura ReviewFlow Works</h2>
+      <div class="workflow-strip">
+        <div class="workflow-step">
+          <span class="workflow-icon">🏪</span>
+          <span class="workflow-text">Business</span>
+        </div>
+        <span class="workflow-arrow">→</span>
+        <div class="workflow-step">
+          <span class="workflow-icon">🔗</span>
+          <span class="workflow-text">Generate QR</span>
+        </div>
+        <span class="workflow-arrow">→</span>
+        <div class="workflow-step">
+          <span class="workflow-icon">📱</span>
+          <span class="workflow-text">Customer Scans</span>
+        </div>
+        <span class="workflow-arrow">→</span>
+        <div class="workflow-step">
+          <span class="workflow-icon">📝</span>
+          <span class="workflow-text">Answers Questions</span>
+        </div>
+        <span class="workflow-arrow">→</span>
+        <div class="workflow-step">
+          <span class="workflow-icon">🤖</span>
+          <span class="workflow-text">AI Generates Review</span>
+        </div>
+        <span class="workflow-arrow">→</span>
+        <div class="workflow-step">
+          <span class="workflow-icon">⭐</span>
+          <span class="workflow-text">Customer Posts Review</span>
+        </div>
+        <span class="workflow-arrow">→</span>
+        <div class="workflow-step">
+          <span class="workflow-icon">📊</span>
+          <span class="workflow-text">Business Receives Insights</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+<script src="../shared/business-config.js?v=20260705"></script>
+<script src="../shared/utils.js?v=20260705"></script>
+<script src="js/qr-manage.js?v=20260705"></script>
+</body>
+</html>

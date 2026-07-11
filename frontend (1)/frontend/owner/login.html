@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graphura ReviewFlow | Owner Login</title>
+<link rel="stylesheet" href="../shared/shared.css?v=20260705">
+  <link rel="stylesheet" href="owner.css?v=20260705">
+</head>
+<body class="landing-body">
+
+  <main class="landing-wrapper">
+    <div class="landing-card owner-login-card">
+
+      <div class="brand-block">
+        <div class="logo-ring">
+          <div class="logo-placeholder">GR</div>
+        </div>
+
+        <h2 class="business-name">Graphura's ReviewFlow</h2>
+
+        <div class="rating-badge owner-portal-badge">Business Owner Portal</div>
+      </div>
+
+      <h1 class="welcome-heading">Welcome Back</h1>
+
+      <p class="landing-desc">
+        Manage your business reviews from one place.
+      </p>
+
+      <form id="ownerLoginForm" class="questionnaire-form owner-login-form" novalidate>
+
+        <div class="form-field">
+          <label class="form-label" for="ownerEmail">Email Address</label>
+          <input type="email" id="ownerEmail" class="form-input" placeholder="you@business.com" autocomplete="username">
+          <p class="field-error" id="emailError"></p>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="ownerPassword">Password</label>
+          <input type="password" id="ownerPassword" class="form-input" placeholder="Enter your password" autocomplete="current-password">
+          <p class="field-error" id="passwordError"></p>
+        </div>
+
+        <div class="form-row">
+          <label class="checkbox-row">
+            <input type="checkbox" id="rememberMe">
+            <span class="checkbox-box"></span>
+            <span class="checkbox-label">Remember me</span>
+          </label>
+
+          <a href="#" class="form-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="cta-btn">Sign In</button>
+
+      </form>
+
+      <p class="powered-by">© <span>Graphura's ReviewFlow</span></p>
+
+    </div>
+  </main>
+
+<script src="../shared/utils.js?v=20260705"></script>
+<script src="js/login.js?v=20260705"></script>
+</body>
+</html>

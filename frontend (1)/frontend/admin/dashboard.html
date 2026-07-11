@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graphura ReviewFlow | Administrator Dashboard</title>
+<link rel="stylesheet" href="../shared/shared.css?v=20260705">
+<link rel="stylesheet" href="admin.css?v=20260705">
+</head>
+<body class="landing-body admin-body">
+
+  <div class="admin-shell">
+
+    <header class="admin-header">
+      <div class="admin-header-brand">
+        <img src="../admin/graphura-logo.png" alt="Graphura logo" class="admin-header-logo">
+        <div class="admin-header-brand-text">
+          <span class="admin-header-product">Graphura's ReviewFlow</span>
+          <span class="admin-header-role">Administrator Dashboard</span>
+        </div>
+      </div>
+
+      <div class="admin-header-meta">
+        <span class="admin-header-date" id="headerDate"></span>
+        <div class="admin-header-avatar" title="Administrator">A</div>
+        <button id="logoutBtn" class="admin-logout-btn" type="button">Logout</button>
+      </div>
+    </header>
+
+    <section class="admin-welcome-section">
+      <h1 class="welcome-heading admin-welcome-heading">
+        <span id="greetingText">Good Morning</span>, Administrator<span class="admin-role-pill">Super Admin</span>
+      </h1>
+      <p class="landing-desc admin-welcome-subtitle">Manage businesses, owners and monitor the Graphura ReviewFlow platform.</p>
+    </section>
+
+    <!-- Platform Overview -->
+    <section class="admin-kpi-grid">
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon">🏢</div>
+        <div class="admin-kpi-value" data-count="245">0</div>
+        <div class="admin-kpi-label">Businesses</div>
+      </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon">👤</div>
+        <div class="admin-kpi-value" data-count="238">0</div>
+        <div class="admin-kpi-label">Business Owners</div>
+      </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon">📝</div>
+        <div class="admin-kpi-value" data-count="18420">0</div>
+        <div class="admin-kpi-label">Reviews Generated</div>
+      </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon">📱</div>
+        <div class="admin-kpi-value" data-count="71350">0</div>
+        <div class="admin-kpi-label">QR Scans</div>
+      </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon">✨</div>
+        <div class="admin-kpi-value" data-count="13875">0</div>
+        <div class="admin-kpi-label">AI Reviews</div>
+      </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon green">💚</div>
+        <div class="admin-kpi-value" data-count="99.9" data-decimal="1" data-suffix="%">0</div>
+        <div class="admin-kpi-label">Platform Health</div>
+      </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="admin-actions-section">
+      <h2 class="admin-section-title">Quick Actions</h2>
+      <div class="admin-actions-grid">
+        <button class="admin-action-card" data-action="business-management" type="button">
+          <span class="admin-action-icon">🏢</span>
+          <span class="admin-action-label">Business Management</span>
+        </button>
+        <button class="admin-action-card" data-action="owner-management" type="button">
+          <span class="admin-action-icon">👤</span>
+          <span class="admin-action-label">Owner Management</span>
+        </button>
+        <button class="admin-action-card" data-action="review-monitoring" type="button">
+          <span class="admin-action-icon">📋</span>
+          <span class="admin-action-label">Review Monitoring</span>
+        </button>
+        <button class="admin-action-card" data-action="platform-analytics" type="button">
+          <span class="admin-action-icon">📊</span>
+          <span class="admin-action-label">Platform Analytics</span>
+        </button>
+        <button class="admin-action-card" data-action="platform-settings" type="button">
+          <span class="admin-action-icon">⚙️</span>
+          <span class="admin-action-label">Platform Settings</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Recent Activity + Platform Growth -->
+    <section class="admin-main-grid">
+
+      <div class="admin-card">
+        <h2 class="admin-section-title">Recent Platform Activity</h2>
+        <div class="admin-activity-list" id="activityList"></div>
+      </div>
+
+      <div class="admin-card">
+        <h2 class="admin-section-title">Platform Growth — Monthly Business Registrations</h2>
+        <div class="admin-growth-chart-wrap">
+          <svg class="admin-growth-svg" id="growthSvg" viewBox="0 0 600 240" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="growthFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#5B4FE8" stop-opacity="0.28"/>
+                <stop offset="100%" stop-color="#5B4FE8" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <polygon id="growthArea" points="" fill="url(#growthFill)"></polygon>
+            <polyline id="growthLine" points="" fill="none" stroke="#5B4FE8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
+            <g id="growthDots"></g>
+          </svg>
+          <div class="admin-growth-x-labels">
+            <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
+          </div>
+        </div>
+        <div class="admin-growth-stats-row">
+          <div class="admin-growth-stat">
+            <span class="admin-growth-stat-value" id="growthTotal">0</span>
+            <span class="admin-growth-stat-label">Total New Businesses</span>
+          </div>
+          <div class="admin-growth-stat">
+            <span class="admin-growth-stat-value" id="growthPeak">0</span>
+            <span class="admin-growth-stat-label">Peak Month</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Recent Businesses -->
+    <section class="admin-table-section admin-card">
+      <h2 class="admin-section-title">Recent Businesses</h2>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Business</th>
+              <th>Category</th>
+              <th>Owner</th>
+              <th>Status</th>
+              <th>Rating</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="businessesTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Category Distribution + Platform Health -->
+    <section class="admin-secondary-grid">
+
+      <div class="admin-card">
+        <h2 class="admin-section-title">Business Category Distribution</h2>
+        <div class="admin-donut-wrap">
+          <div class="admin-donut"></div>
+          <div class="admin-donut-legend" id="categoryLegend"></div>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <h2 class="admin-section-title">Platform Health</h2>
+        <div class="admin-health-grid">
+          <div class="admin-health-card">
+            <div class="admin-health-icon">🖥️</div>
+            <div class="admin-health-body">
+              <span class="admin-health-label">Server Status</span>
+              <span class="admin-health-value">Healthy</span>
+            </div>
+          </div>
+          <div class="admin-health-card">
+            <div class="admin-health-icon">🤖</div>
+            <div class="admin-health-body">
+              <span class="admin-health-label">AI Service</span>
+              <span class="admin-health-value">Operational</span>
+            </div>
+          </div>
+          <div class="admin-health-card">
+            <div class="admin-health-icon">🗄️</div>
+            <div class="admin-health-body">
+              <span class="admin-health-label">Database</span>
+              <span class="admin-health-value">Healthy</span>
+            </div>
+          </div>
+          <div class="admin-health-card">
+            <div class="admin-health-icon">💾</div>
+            <div class="admin-health-body">
+              <span class="admin-health-label">Storage</span>
+              <span class="admin-health-value">82%</span>
+            </div>
+          </div>
+          <div class="admin-health-card">
+            <div class="admin-health-icon">📱</div>
+            <div class="admin-health-body">
+              <span class="admin-health-label">QR Service</span>
+              <span class="admin-health-value">Running</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- AI Platform Insights -->
+    <section class="admin-ai-card">
+      <div class="admin-ai-header">
+        <span class="admin-ai-icon">✨</span>
+        <h2 class="admin-ai-title">AI Platform Insights</h2>
+      </div>
+      <div class="admin-ai-grid">
+        <div class="admin-ai-stat">
+          <span class="admin-ai-stat-value">Restaurants</span>
+          <span class="admin-ai-stat-label">Top Performing Category</span>
+        </div>
+        <div class="admin-ai-stat">
+          <span class="admin-ai-stat-value">12</span>
+          <span class="admin-ai-stat-label">Businesses Needing Attention</span>
+        </div>
+        <div class="admin-ai-stat">
+          <span class="admin-ai-stat-value">Pune</span>
+          <span class="admin-ai-stat-label">Most Active City</span>
+        </div>
+        <div class="admin-ai-stat">
+          <span class="admin-ai-stat-value">+18%</span>
+          <span class="admin-ai-stat-label">Growth Trend</span>
+        </div>
+      </div>
+      <div class="admin-ai-recommendation">
+        <span>💡</span>
+        <span><strong>Recommendation:</strong> Focus onboarding campaigns towards salons and clinics.</span>
+      </div>
+    </section>
+
+    <!-- Footer Actions -->
+    <section class="admin-footer-actions">
+      <button type="button" class="admin-footer-btn" id="downloadCsvBtn">
+        <span>📊</span>Download CSV
+      </button>
+      <button type="button" class="admin-footer-btn" id="refreshDataBtn">
+        <span>🔄</span>Refresh Data
+      </button>
+      <button type="button" class="admin-footer-btn primary" id="exportReportBtn">
+        <span>📄</span>Export Platform Report
+      </button>
+    </section>
+
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+<script src="../shared/constants.js?v=20260705"></script>
+<script src="../shared/utils.js?v=20260705"></script>
+<script src="../shared/mock-data.js?v=20260705"></script>
+<script src="js/dashboard.js?v=20260705"></script>
+</body>
+</html>

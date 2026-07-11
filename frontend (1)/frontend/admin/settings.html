@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graphura ReviewFlow | Platform Settings</title>
+<link rel="stylesheet" href="../shared/shared.css?v=20260705">
+<link rel="stylesheet" href="admin.css?v=20260705">
+</head>
+<body class="landing-body admin-body">
+
+  <div class="admin-shell">
+
+    <header class="admin-header">
+      <div class="admin-header-brand">
+        <img src="../admin/graphura-logo.png" alt="Graphura logo" class="admin-header-logo">
+        <div class="admin-header-brand-text">
+          <span class="admin-header-product">Graphura's ReviewFlow</span>
+          <span class="admin-header-role">Platform Settings</span>
+        </div>
+      </div>
+
+      <div class="admin-header-meta">
+        <span class="admin-header-date" id="headerDate"></span>
+        <div class="admin-header-avatar" title="Administrator">A</div>
+        <button id="logoutBtn" class="admin-logout-btn" type="button">Logout</button>
+      </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="admin-nav-tabs" id="adminNavTabs">
+      <a class="admin-nav-tab" href="dashboard.html" data-nav="dashboard">Dashboard</a>
+      <a class="admin-nav-tab" href="businesses.html" data-nav="businesses">Business Management</a>
+      <a class="admin-nav-tab" href="owners.html" data-nav="owners">Owner Management</a>
+      <a class="admin-nav-tab" href="reviews.html" data-nav="reviews">Review Monitoring</a>
+      <button class="admin-nav-tab" type="button" data-nav="analytics">Platform Analytics</button>
+      <a class="admin-nav-tab active" href="settings.html" data-nav="settings">Platform Settings</a>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="admin-page-header">
+      <div class="admin-page-header-text">
+        <span class="admin-page-eyebrow">Graphura ReviewFlow</span>
+        <h1 class="admin-page-title">Platform Settings</h1>
+        <p class="admin-page-subtitle">Manage platform configuration, security, AI behaviour and integrations.</p>
+      </div>
+      <div class="admin-page-header-actions">
+        <button class="admin-btn" type="button" id="resetDefaultsBtn"><span>♻️</span>Reset Defaults</button>
+        <button class="admin-btn primary" type="button" id="saveChangesBtn"><span>💾</span>Save Changes</button>
+      </div>
+    </section>
+
+    <!-- 1. Platform Information -->
+    <section class="admin-card">
+      <h2 class="admin-section-title">Platform Information</h2>
+      <div class="admin-view-grid" id="platformInfoGrid">
+        <div class="admin-view-field">
+          <span class="admin-view-field-label">Platform Name</span>
+          <span class="admin-view-field-value">Graphura ReviewFlow</span>
+        </div>
+        <div class="admin-view-field">
+          <span class="admin-view-field-label">Version</span>
+          <span class="admin-view-field-value">v2.4.1</span>
+        </div>
+        <div class="admin-view-field">
+          <span class="admin-view-field-label">Environment</span>
+          <span class="admin-view-field-value">Production</span>
+        </div>
+        <div class="admin-view-field">
+          <span class="admin-view-field-label">Build Date</span>
+          <span class="admin-view-field-value">July 2, 2026</span>
+        </div>
+        <div class="admin-view-field">
+          <span class="admin-view-field-label">Platform Status</span>
+          <span class="admin-status-badge admin-status-active">Operational</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Two-column layout -->
+    <div class="admin-biz-layout">
+      <div>
+
+        <!-- 2. General Platform Settings -->
+        <section class="admin-card">
+          <h2 class="admin-section-title">General Platform Settings</h2>
+          <form class="admin-modal-form" id="generalSettingsForm">
+            <div class="form-field">
+              <label class="form-label">Platform Name</label>
+              <input type="text" class="form-input" id="settingPlatformName" value="Graphura ReviewFlow">
+            </div>
+            <div class="form-row-2">
+              <div class="form-field">
+                <label class="form-label">Support Email</label>
+                <input type="email" class="form-input" id="settingSupportEmail" value="support@graphura.com">
+              </div>
+              <div class="form-field">
+                <label class="form-label">Contact Number</label>
+                <input type="text" class="form-input" id="settingContactNumber" value="+91 98765 43210">
+              </div>
+            </div>
+            <div class="form-row-2">
+              <div class="form-field">
+                <label class="form-label">Timezone</label>
+                <select class="form-input" id="settingTimezone">
+                  <option value="Asia/Kolkata">Asia/Kolkata (IST)</option>
+                  <option value="UTC">UTC</option>
+                  <option value="America/New_York">America/New York (EST)</option>
+                  <option value="Europe/London">Europe/London (GMT)</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label class="form-label">Language</label>
+                <select class="form-input" id="settingLanguage">
+                  <option value="en">English</option>
+                  <option value="hi">Hindi</option>
+                  <option value="es">Spanish</option>
+                  <option value="fr">French</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Currency</label>
+              <select class="form-input" id="settingCurrency">
+                <option value="INR">INR (₹)</option>
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+              </select>
+            </div>
+          </form>
+        </section>
+
+        <!-- 3. AI Configuration -->
+        <section class="admin-card">
+          <h2 class="admin-section-title">AI Configuration</h2>
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">AI Generation</span>
+              <span class="admin-settings-row-desc">Enable AI-powered review reply generation.</span>
+            </div>
+            <label class="admin-toggle">
+              <input type="checkbox" id="toggleAiGeneration" checked>
+              <span class="admin-toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">Minimum Rating</span>
+              <span class="admin-settings-row-desc">Minimum star rating required before AI auto-generates a reply.</span>
+            </div>
+            <div class="admin-slider-wrap">
+              <input type="range" min="1" max="5" step="1" value="3" class="admin-slider" id="sliderMinRating">
+              <span class="admin-slider-value" id="sliderMinRatingValue">3</span>
+            </div>
+          </div>
+
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">Maximum Review Length</span>
+              <span class="admin-settings-row-desc">Maximum character length for AI-generated replies.</span>
+            </div>
+            <select class="form-input admin-settings-select" id="selectMaxReviewLength">
+              <option value="150">150 characters</option>
+              <option value="300" selected>300 characters</option>
+              <option value="500">500 characters</option>
+              <option value="1000">1000 characters</option>
+            </select>
+          </div>
+
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">Review Tone</span>
+              <span class="admin-settings-row-desc">Default tone used for AI-generated replies.</span>
+            </div>
+            <select class="form-input admin-settings-select" id="selectReviewTone">
+              <option value="friendly" selected>Friendly</option>
+              <option value="formal">Formal</option>
+              <option value="professional">Professional</option>
+              <option value="casual">Casual</option>
+            </select>
+          </div>
+
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">AI Creativity</span>
+              <span class="admin-settings-row-desc">Higher values allow more varied, creative responses.</span>
+            </div>
+            <div class="admin-slider-wrap">
+              <input type="range" min="0" max="100" step="5" value="60" class="admin-slider" id="sliderAiCreativity">
+              <span class="admin-slider-value" id="sliderAiCreativityValue">60%</span>
+            </div>
+          </div>
+
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">Profanity Filter</span>
+              <span class="admin-settings-row-desc">Automatically filter inappropriate language from AI replies.</span>
+            </div>
+            <label class="admin-toggle">
+              <input type="checkbox" id="toggleProfanityFilter" checked>
+              <span class="admin-toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">Auto Retry</span>
+              <span class="admin-settings-row-desc">Automatically retry AI generation if a request fails.</span>
+            </div>
+            <label class="admin-toggle">
+              <input type="checkbox" id="toggleAutoRetry" checked>
+              <span class="admin-toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">AI Model</span>
+              <span class="admin-settings-row-desc">Current model powering AI review replies.</span>
+            </div>
+            <span class="admin-access-badge admin-access-active">Claude Sonnet 5</span>
+          </div>
+        </section>
+
+        <!-- 4. Google Integration -->
+        <section class="admin-card">
+          <h2 class="admin-section-title">Google Integration</h2>
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">Connection Status</span>
+              <span class="admin-settings-row-desc">Google Business Profile connection for this platform.</span>
+            </div>
+            <span class="admin-status-badge admin-status-active" id="googleConnectionStatus">Connected</span>
+          </div>
+
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">Manage Connection</span>
+              <span class="admin-settings-row-desc">Reconnect or disconnect the Google integration.</span>
+            </div>
+            <div class="admin-table-actions">
+              <button class="admin-table-action-btn" type="button" id="googleReconnectBtn">Reconnect</button>
+              <button class="admin-table-action-btn danger" type="button" id="googleDisconnectBtn">Disconnect</button>
+            </div>
+          </div>
+
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">Google Review Redirect</span>
+              <span class="admin-settings-row-desc">Redirect customers to Google to leave public reviews.</span>
+            </div>
+            <label class="admin-toggle">
+              <input type="checkbox" id="toggleGoogleRedirect" checked>
+              <span class="admin-toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">QR Generation Status</span>
+              <span class="admin-settings-row-desc">Status of the QR code generation service.</span>
+            </div>
+            <span class="admin-access-badge admin-access-active">Active</span>
+          </div>
+
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">API Key</span>
+              <span class="admin-settings-row-desc">Google API key used for platform integrations.</span>
+            </div>
+            <div class="admin-search-wrap" style="max-width:260px;">
+              <input type="password" class="form-input" id="googleApiKeyInput" value="AIzaSyD-9x82Kf7QwLm3ZpN6cRt5VbY18eHqjKs" readonly>
+              <button class="admin-table-action-btn" type="button" id="toggleApiKeyBtn" style="margin-left:8px;">Show</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. Security Settings -->
+        <section class="admin-card">
+          <h2 class="admin-section-title">Security Settings</h2>
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">Strong Password Policy</span>
+              <span class="admin-settings-row-desc">Require a strong password for all admin and owner accounts.</span>
+            </div>
+            <label class="admin-toggle">
+              <input type="checkbox" id="toggleStrongPassword" checked>
+              <span class="admin-toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">Two Factor Authentication</span>
+              <span class="admin-settings-row-desc">Require a second verification step at login.</span>
+            </div>
+            <label class="admin-toggle">
+              <input type="checkbox" id="toggleTwoFactor">
+              <span class="admin-toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">Session Timeout</span>
+              <span class="admin-settings-row-desc">Automatically log out inactive sessions.</span>
+            </div>
+            <select class="form-input admin-settings-select" id="selectSessionTimeout">
+              <option value="15">15 minutes</option>
+              <option value="30" selected>30 minutes</option>
+              <option value="60">1 hour</option>
+              <option value="120">2 hours</option>
+            </select>
+          </div>
+
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">Max Login Attempts</span>
+              <span class="admin-settings-row-desc">Lock account after this many failed login attempts.</span>
+            </div>
+            <select class="form-input admin-settings-select" id="selectMaxLoginAttempts">
+              <option value="3">3 attempts</option>
+              <option value="5" selected>5 attempts</option>
+              <option value="10">10 attempts</option>
+            </select>
+          </div>
+
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">Login Notification</span>
+              <span class="admin-settings-row-desc">Email admins when a new login is detected.</span>
+            </div>
+            <label class="admin-toggle">
+              <input type="checkbox" id="toggleLoginNotification" checked>
+              <span class="admin-toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">Password Expiry</span>
+              <span class="admin-settings-row-desc">Force a password reset after this period.</span>
+            </div>
+            <select class="form-input admin-settings-select" id="selectPasswordExpiry">
+              <option value="30">30 days</option>
+              <option value="60">60 days</option>
+              <option value="90" selected>90 days</option>
+              <option value="never">Never</option>
+            </select>
+          </div>
+        </section>
+
+        <!-- 6. Platform Limits -->
+        <section class="admin-card">
+          <h2 class="admin-section-title">Platform Limits</h2>
+          <form class="admin-modal-form" id="platformLimitsForm">
+            <div class="form-row-2">
+              <div class="form-field">
+                <label class="form-label">Maximum Businesses</label>
+                <input type="number" class="form-input" id="limitMaxBusinesses" value="500">
+              </div>
+              <div class="form-field">
+                <label class="form-label">Maximum Owners</label>
+                <input type="number" class="form-input" id="limitMaxOwners" value="500">
+              </div>
+            </div>
+            <div class="form-row-2">
+              <div class="form-field">
+                <label class="form-label">Maximum Reviews</label>
+                <input type="number" class="form-input" id="limitMaxReviews" value="100000">
+              </div>
+              <div class="form-field">
+                <label class="form-label">Maximum AI Requests</label>
+                <input type="number" class="form-input" id="limitMaxAiRequests" value="50000">
+              </div>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Storage Limit (GB)</label>
+              <input type="number" class="form-input" id="limitStorage" value="250">
+            </div>
+          </form>
+        </section>
+
+        <!-- 7. Email Notifications -->
+        <section class="admin-card">
+          <h2 class="admin-section-title">Email Notifications</h2>
+          <label class="admin-checkbox-row">
+            <input type="checkbox" id="notifyOwnerRegistration" checked>
+            <span>Owner Registration</span>
+          </label>
+          <label class="admin-checkbox-row">
+            <input type="checkbox" id="notifyBusinessApproval" checked>
+            <span>Business Approval</span>
+          </label>
+          <label class="admin-checkbox-row">
+            <input type="checkbox" id="notifyReviewGenerated">
+            <span>Review Generated</span>
+          </label>
+          <label class="admin-checkbox-row">
+            <input type="checkbox" id="notifyWeeklyReport" checked>
+            <span>Weekly Report</span>
+          </label>
+          <label class="admin-checkbox-row">
+            <input type="checkbox" id="notifyMonthlyReport" checked>
+            <span>Monthly Report</span>
+          </label>
+          <label class="admin-checkbox-row">
+            <input type="checkbox" id="notifySystemAlerts" checked>
+            <span>System Alerts</span>
+          </label>
+        </section>
+
+        <!-- 8. Backup & Recovery -->
+        <section class="admin-card">
+          <h2 class="admin-section-title">Backup &amp; Recovery</h2>
+          <div class="admin-view-grid">
+            <div class="admin-view-field">
+              <span class="admin-view-field-label">Last Backup</span>
+              <span class="admin-view-field-value" id="lastBackupValue">July 8, 2026 — 2:30 AM</span>
+            </div>
+            <div class="admin-view-field">
+              <span class="admin-view-field-label">Automatic Backup</span>
+              <span class="admin-view-field-value">Daily</span>
+            </div>
+            <div class="admin-view-field">
+              <span class="admin-view-field-label">Retention</span>
+              <span class="admin-view-field-value">30 days</span>
+            </div>
+          </div>
+          <div class="admin-table-actions" style="margin-top:16px;">
+            <button class="admin-btn" type="button" id="createBackupBtn">Create Backup</button>
+            <button class="admin-btn" type="button" id="restoreBackupBtn">Restore Backup</button>
+            <button class="admin-btn primary" type="button" id="downloadBackupBtn">Download Backup</button>
+          </div>
+        </section>
+
+        <!-- 9. Appearance -->
+        <section class="admin-card">
+          <h2 class="admin-section-title">Appearance</h2>
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">Theme</span>
+              <span class="admin-settings-row-desc">Visual theme for the admin dashboard.</span>
+            </div>
+            <select class="form-input admin-settings-select" id="selectTheme">
+              <option value="light" selected>Light</option>
+              <option value="dark">Dark</option>
+              <option value="system">System</option>
+            </select>
+          </div>
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">Accent Color</span>
+              <span class="admin-settings-row-desc">Primary accent color used across the platform.</span>
+            </div>
+            <select class="form-input admin-settings-select" id="selectAccent">
+              <option value="blue" selected>Blue</option>
+              <option value="green">Green</option>
+              <option value="purple">Purple</option>
+              <option value="gold">Gold</option>
+            </select>
+          </div>
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">Compact Layout</span>
+              <span class="admin-settings-row-desc">Reduce spacing for a denser layout.</span>
+            </div>
+            <label class="admin-toggle">
+              <input type="checkbox" id="toggleCompactLayout">
+              <span class="admin-toggle-slider"></span>
+            </label>
+          </div>
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">Rounded Corners</span>
+              <span class="admin-settings-row-desc">Use rounded corners on cards and buttons.</span>
+            </div>
+            <label class="admin-toggle">
+              <input type="checkbox" id="toggleRoundedCorners" checked>
+              <span class="admin-toggle-slider"></span>
+            </label>
+          </div>
+        </section>
+
+        <!-- 10. Maintenance Mode -->
+        <section class="admin-card admin-warning-card">
+          <h2 class="admin-section-title">Maintenance Mode</h2>
+          <div class="admin-settings-row">
+            <div class="admin-settings-row-text">
+              <span class="admin-settings-row-title">Enable Maintenance Mode</span>
+              <span class="admin-settings-row-desc">Temporarily take the platform offline for all non-admin users.</span>
+            </div>
+            <label class="admin-toggle">
+              <input type="checkbox" id="toggleMaintenanceMode">
+              <span class="admin-toggle-slider"></span>
+            </label>
+          </div>
+          <div class="admin-warning-banner" id="maintenanceWarning" style="display:none;">
+            <span>⚠️</span>
+            <span>Maintenance mode is active. Business owners and customers will be unable to access the platform until it is disabled.</span>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Sidebar -->
+      <div class="admin-biz-sidebar">
+
+        <!-- 11. API Usage -->
+        <div class="admin-card">
+          <h2 class="admin-section-title">API Usage</h2>
+          <div class="admin-progress-list" id="apiUsageProgress">
+            <div class="admin-progress-row">
+              <div class="admin-progress-row-head">
+                <span>Monthly Requests</span>
+                <span>68%</span>
+              </div>
+              <div class="admin-progress-track">
+                <div class="admin-progress-fill" data-width="68"></div>
+              </div>
+            </div>
+            <div class="admin-progress-row">
+              <div class="admin-progress-row-head">
+                <span>AI Requests</span>
+                <span>54%</span>
+              </div>
+              <div class="admin-progress-track">
+                <div class="admin-progress-fill" data-width="54"></div>
+              </div>
+            </div>
+            <div class="admin-progress-row">
+              <div class="admin-progress-row-head">
+                <span>Google API</span>
+                <span>41%</span>
+              </div>
+              <div class="admin-progress-track">
+                <div class="admin-progress-fill" data-width="41"></div>
+              </div>
+            </div>
+            <div class="admin-progress-row">
+              <div class="admin-progress-row-head">
+                <span>Storage</span>
+                <span>73%</span>
+              </div>
+              <div class="admin-progress-track">
+                <div class="admin-progress-fill" data-width="73"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 12. Platform Health -->
+        <div class="admin-card">
+          <h2 class="admin-section-title">Platform Health</h2>
+          <div class="admin-insights-list" id="platformHealthList">
+            <div class="admin-insight-row">
+              <span class="admin-insight-label">Server</span>
+              <span class="admin-status-badge admin-status-active">Online</span>
+            </div>
+            <div class="admin-insight-row">
+              <span class="admin-insight-label">Database</span>
+              <span class="admin-status-badge admin-status-active">Online</span>
+            </div>
+            <div class="admin-insight-row">
+              <span class="admin-insight-label">AI Service</span>
+              <span class="admin-status-badge admin-status-active">Online</span>
+            </div>
+            <div class="admin-insight-row">
+              <span class="admin-insight-label">Storage</span>
+              <span class="admin-status-badge admin-status-active">Online</span>
+            </div>
+            <div class="admin-insight-row">
+              <span class="admin-insight-label">QR Service</span>
+              <span class="admin-status-badge admin-status-active">Online</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 14. About Platform -->
+        <div class="admin-card">
+          <h2 class="admin-section-title">About Platform</h2>
+          <div class="admin-insights-list">
+            <div class="admin-insight-row">
+              <span class="admin-insight-label">Platform Name</span>
+              <span class="admin-insight-value">Graphura ReviewFlow</span>
+            </div>
+            <div class="admin-insight-row">
+              <span class="admin-insight-label">Version</span>
+              <span class="admin-insight-value">v2.4.1</span>
+            </div>
+            <div class="admin-insight-row">
+              <span class="admin-insight-label">Frontend</span>
+              <span class="admin-insight-value">HTML / CSS / JS</span>
+            </div>
+            <div class="admin-insight-row">
+              <span class="admin-insight-label">Backend</span>
+              <span class="admin-insight-value">Node.js</span>
+            </div>
+            <div class="admin-insight-row">
+              <span class="admin-insight-label">Database</span>
+              <span class="admin-insight-value">PostgreSQL</span>
+            </div>
+            <div class="admin-insight-row">
+              <span class="admin-insight-label">AI</span>
+              <span class="admin-insight-value">Claude Sonnet 5</span>
+            </div>
+            <div class="admin-insight-row">
+              <span class="admin-insight-label">Build Status</span>
+              <span class="admin-status-badge admin-status-active">Stable</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- 13. System Logs -->
+    <section class="admin-table-section admin-card">
+      <h2 class="admin-section-title">System Logs</h2>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Action</th>
+              <th>Admin</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="systemLogsTableBody">
+            <tr>
+              <td>Today — 9:12 AM</td>
+              <td>Updated AI Configuration</td>
+              <td>Admin</td>
+              <td><span class="admin-status-badge admin-status-active">Success</span></td>
+            </tr>
+            <tr>
+              <td>Today — 7:45 AM</td>
+              <td>Created Platform Backup</td>
+              <td>Admin</td>
+              <td><span class="admin-status-badge admin-status-active">Success</span></td>
+            </tr>
+            <tr>
+              <td>Yesterday — 6:20 PM</td>
+              <td>Reconnected Google Integration</td>
+              <td>Admin</td>
+              <td><span class="admin-status-badge admin-status-active">Success</span></td>
+            </tr>
+            <tr>
+              <td>Yesterday — 3:05 PM</td>
+              <td>Updated Security Settings</td>
+              <td>Admin</td>
+              <td><span class="admin-status-badge admin-status-active">Success</span></td>
+            </tr>
+            <tr>
+              <td>Jul 7, 2026 — 11:40 AM</td>
+              <td>Attempted Import Configuration</td>
+              <td>Admin</td>
+              <td><span class="admin-status-badge admin-status-suspended">Failed</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Footer Actions -->
+    <section class="admin-footer-actions">
+      <button type="button" class="admin-footer-btn" id="exportConfigBtn"><span>📤</span>Export Configuration</button>
+      <button type="button" class="admin-footer-btn" id="importConfigBtn"><span>📥</span>Import Configuration</button>
+      <button type="button" class="admin-footer-btn" id="footerResetDefaultsBtn"><span>♻️</span>Reset Defaults</button>
+      <button type="button" class="admin-footer-btn primary" id="footerSaveChangesBtn"><span>💾</span>Save Changes</button>
+    </section>
+
+  </div>
+
+  <!-- Confirm Modal (Restore Backup / Reset Defaults) -->
+  <div class="admin-modal-overlay" id="confirmModalOverlay">
+    <div class="admin-modal admin-modal-sm">
+      <div class="admin-confirm-icon" id="confirmIcon">⚠️</div>
+      <h2 class="admin-modal-title" id="confirmTitle">Restore Backup?</h2>
+      <p class="admin-confirm-text" id="confirmText">This will restore the platform to the last saved backup.</p>
+      <div class="admin-modal-footer">
+        <button class="admin-btn" type="button" data-close="confirm">Cancel</button>
+        <button class="admin-btn primary" type="button" id="confirmActionBtn">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <input type="file" id="importConfigFileInput" accept="application/json" style="display:none;">
+
+  <div id="toast" class="toast"></div>
+
+<script src="../shared/constants.js?v=20260705"></script>
+<script src="../shared/utils.js?v=20260705"></script>
+<script src="../shared/mock-data.js?v=20260705"></script>
+<script src="js/settings.js?v=20260705"></script>
+</body>
+</html>

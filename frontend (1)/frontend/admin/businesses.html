@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graphura ReviewFlow | Business Management</title>
+<link rel="stylesheet" href="../shared/shared.css?v=20260705">
+<link rel="stylesheet" href="admin.css?v=20260705">
+</head>
+<body class="landing-body admin-body">
+
+  <div class="admin-shell">
+
+    <header class="admin-header">
+      <div class="admin-header-brand">
+        <img src="../admin/graphura-logo.png" alt="Graphura logo" class="admin-header-logo">
+        <div class="admin-header-brand-text">
+          <span class="admin-header-product">Graphura's ReviewFlow</span>
+          <span class="admin-header-role">Business Management</span>
+        </div>
+      </div>
+
+      <div class="admin-header-meta">
+        <span class="admin-header-date" id="headerDate"></span>
+        <div class="admin-header-avatar" title="Administrator">A</div>
+        <button id="logoutBtn" class="admin-logout-btn" type="button">Logout</button>
+      </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="admin-nav-tabs" id="adminNavTabs">
+      <a class="admin-nav-tab" href="dashboard.html" data-nav="dashboard">Dashboard</a>
+      <a class="admin-nav-tab active" href="businesses.html" data-nav="businesses">Business Management</a>
+      <a class="admin-nav-tab" href="owners.html" data-nav="owners">Owner Management</a>
+      <a class="admin-nav-tab" href="reviews.html" data-nav="reviews">Review Monitoring</a>
+      <button class="admin-nav-tab" type="button" data-nav="analytics">Platform Analytics</button>
+      <button class="admin-nav-tab" type="button" data-nav="settings">Platform Settings</button>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="admin-page-header">
+      <div class="admin-page-header-text">
+        <span class="admin-page-eyebrow">Graphura ReviewFlow</span>
+        <h1 class="admin-page-title">Business Management</h1>
+        <p class="admin-page-subtitle">Manage all registered businesses across the platform.</p>
+      </div>
+      <div class="admin-page-header-actions">
+        <button class="admin-btn" type="button" id="exportCsvBtn"><span>📊</span>Export CSV</button>
+        <button class="admin-btn primary" type="button" id="addBusinessBtn"><span>➕</span>Add Business</button>
+      </div>
+    </section>
+
+    <!-- Business KPI Cards -->
+    <section class="admin-kpi-grid" id="bizKpiGrid">
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon">🏢</div>
+        <div class="admin-kpi-value" data-count="245">0</div>
+        <div class="admin-kpi-label">Total Businesses</div>
+      </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon green">✅</div>
+        <div class="admin-kpi-value" data-count="228">0</div>
+        <div class="admin-kpi-label">Active Businesses</div>
+      </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon gold">⏳</div>
+        <div class="admin-kpi-value" data-count="11">0</div>
+        <div class="admin-kpi-label">Pending Approval</div>
+      </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon" style="background: rgba(225,72,63,0.1);">⛔</div>
+        <div class="admin-kpi-value" data-count="6">0</div>
+        <div class="admin-kpi-label">Suspended</div>
+      </div>
+    </section>
+
+    <!-- Main layout: Table + Sidebar -->
+    <div class="admin-biz-layout">
+
+      <div>
+        <!-- Search + Filters -->
+        <section class="admin-toolbar">
+          <div class="admin-search-wrap">
+            <span class="admin-search-icon">🔍</span>
+            <input type="text" class="admin-search-input" id="bizSearchInput" placeholder="Search businesses...">
+          </div>
+        </section>
+
+        <section class="admin-chips-row" id="bizFilterChips" style="margin-bottom: 18px;">
+          <button class="admin-chip active" type="button" data-filter="all">All</button>
+          <button class="admin-chip" type="button" data-filter="category:Restaurant">Restaurant</button>
+          <button class="admin-chip" type="button" data-filter="category:Cafe">Cafe</button>
+          <button class="admin-chip" type="button" data-filter="category:Salon">Salon</button>
+          <button class="admin-chip" type="button" data-filter="category:Retail">Retail</button>
+          <button class="admin-chip" type="button" data-filter="category:Clinic">Clinic</button>
+          <button class="admin-chip" type="button" data-filter="status:active">Active</button>
+          <button class="admin-chip" type="button" data-filter="status:pending">Pending</button>
+          <button class="admin-chip" type="button" data-filter="status:suspended">Suspended</button>
+        </section>
+
+        <!-- Business Table -->
+        <section class="admin-table-section admin-card">
+          <h2 class="admin-section-title">All Businesses</h2>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Business</th>
+                  <th>Business ID</th>
+                  <th>Category</th>
+                  <th>Owner</th>
+                  <th>City</th>
+                  <th>Rating</th>
+                  <th>Reviews</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="bizTableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="admin-empty-state" id="bizEmptyState">
+            <div class="admin-empty-icon">🔍</div>
+            <div class="admin-empty-title">No businesses found.</div>
+            <div class="admin-empty-subtitle">Try changing your filters.</div>
+          </div>
+
+          <div class="admin-pagination" id="bizPagination">
+            <button class="admin-page-btn" type="button" data-page="prev">Previous</button>
+            <button class="admin-page-btn active" type="button" data-page="1">1</button>
+            <button class="admin-page-btn" type="button" data-page="2">2</button>
+            <button class="admin-page-btn" type="button" data-page="3">3</button>
+            <button class="admin-page-btn" type="button" data-page="next">Next</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="admin-biz-sidebar">
+
+        <div class="admin-card">
+          <h2 class="admin-section-title">Business Insights</h2>
+          <div class="admin-insights-list" id="bizInsightsList"></div>
+        </div>
+
+        <div class="admin-card">
+          <h2 class="admin-section-title">Category Distribution</h2>
+          <div class="admin-progress-list" id="bizCategoryProgress"></div>
+        </div>
+
+        <div class="admin-card">
+          <h2 class="admin-section-title">Recent Registrations</h2>
+          <div class="admin-activity-list" id="bizRecentRegistrations"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- AI Business Overview -->
+    <section class="admin-ai-card">
+      <div class="admin-ai-header">
+        <span class="admin-ai-icon">✨</span>
+        <h2 class="admin-ai-title">AI Business Overview</h2>
+      </div>
+      <div class="admin-ai-grid" id="bizAiGrid">
+        <div class="admin-ai-stat">
+          <span class="admin-ai-stat-value">Restaurant</span>
+          <span class="admin-ai-stat-label">Top Performing Category</span>
+        </div>
+        <div class="admin-ai-stat">
+          <span class="admin-ai-stat-value">6</span>
+          <span class="admin-ai-stat-label">Businesses Requiring Attention</span>
+        </div>
+        <div class="admin-ai-stat">
+          <span class="admin-ai-stat-value">4.74</span>
+          <span class="admin-ai-stat-label">Average Platform Rating</span>
+        </div>
+        <div class="admin-ai-stat">
+          <span class="admin-ai-stat-value">+16%</span>
+          <span class="admin-ai-stat-label">Platform Growth</span>
+        </div>
+      </div>
+      <div class="admin-ai-recommendation">
+        <span>💡</span>
+        <span><strong>Recommendation:</strong> Focus onboarding campaigns towards healthcare and salons.</span>
+      </div>
+    </section>
+
+    <!-- Footer Actions -->
+    <section class="admin-footer-actions">
+      <button type="button" class="admin-footer-btn" id="exportCsvFooterBtn"><span>📊</span>Export CSV</button>
+      <button type="button" class="admin-footer-btn" id="exportPdfBtn"><span>📄</span>Export PDF</button>
+      <button type="button" class="admin-footer-btn primary" id="refreshDataBtn"><span>🔄</span>Refresh Data</button>
+    </section>
+
+  </div>
+
+  <!-- View Business Modal -->
+  <div class="admin-modal-overlay" id="viewModalOverlay">
+    <div class="admin-modal">
+      <div class="admin-view-header">
+        <div class="admin-view-avatar" id="viewAvatar">CA</div>
+        <div class="admin-view-header-text">
+          <div class="admin-view-name" id="viewName">Cafe Aroma</div>
+          <div class="admin-view-id" id="viewBusId">BUS-001</div>
+        </div>
+        <button class="admin-modal-close" type="button" data-close="view" style="margin-left:auto;">✕</button>
+      </div>
+      <div class="admin-view-grid" id="viewGrid"></div>
+      <div class="admin-modal-footer">
+        <button class="admin-btn" type="button" data-close="view">Close</button>
+        <button class="admin-btn primary" type="button" id="viewEditBtn">Edit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Business Modal -->
+  <div class="admin-modal-overlay" id="editModalOverlay">
+    <div class="admin-modal">
+      <div class="admin-modal-header">
+        <h2 class="admin-modal-title">Edit Business</h2>
+        <button class="admin-modal-close" type="button" data-close="edit">✕</button>
+      </div>
+      <form class="admin-modal-form" id="editForm">
+        <div class="form-field">
+          <label class="form-label">Business Name</label>
+          <input type="text" class="form-input" id="editName" required>
+        </div>
+        <div class="form-row-2">
+          <div class="form-field">
+            <label class="form-label">Category</label>
+            <select class="form-input" id="editCategory">
+              <option>Restaurant</option>
+              <option>Cafe</option>
+              <option>Salon</option>
+              <option>Retail</option>
+              <option>Clinic</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label class="form-label">City</label>
+            <input type="text" class="form-input" id="editCity" required>
+          </div>
+        </div>
+        <div class="form-row-2">
+          <div class="form-field">
+            <label class="form-label">Status</label>
+            <select class="form-input" id="editStatus">
+              <option value="active">Active</option>
+              <option value="pending">Pending</option>
+              <option value="suspended">Suspended</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Threshold Rating</label>
+            <input type="number" min="1" max="5" step="0.1" class="form-input" id="editThreshold">
+          </div>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Owner Name</label>
+          <input type="text" class="form-input" id="editOwner" required>
+        </div>
+      </form>
+      <div class="admin-modal-footer">
+        <button class="admin-btn" type="button" data-close="edit">Cancel</button>
+        <button class="admin-btn primary" type="button" id="saveEditBtn">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Business Modal -->
+  <div class="admin-modal-overlay" id="addModalOverlay">
+    <div class="admin-modal">
+      <div class="admin-modal-header">
+        <h2 class="admin-modal-title">Add Business</h2>
+        <button class="admin-modal-close" type="button" data-close="add">✕</button>
+      </div>
+      <form class="admin-modal-form" id="addForm">
+        <div class="form-field">
+          <label class="form-label">Business Name</label>
+          <input type="text" class="form-input" id="addName" placeholder="e.g. Green Leaf Bistro" required>
+        </div>
+        <div class="form-row-2">
+          <div class="form-field">
+            <label class="form-label">Owner</label>
+            <input type="text" class="form-input" id="addOwner" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" id="addEmail" required>
+          </div>
+        </div>
+        <div class="form-row-2">
+          <div class="form-field">
+            <label class="form-label">Phone</label>
+            <input type="text" class="form-input" id="addPhone" placeholder="+91 98765 43210">
+          </div>
+          <div class="form-field">
+            <label class="form-label">Category</label>
+            <select class="form-input" id="addCategory">
+              <option>Restaurant</option>
+              <option>Cafe</option>
+              <option>Salon</option>
+              <option>Retail</option>
+              <option>Clinic</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row-2">
+          <div class="form-field">
+            <label class="form-label">City</label>
+            <input type="text" class="form-input" id="addCity" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Rating Threshold</label>
+            <input type="number" min="1" max="5" step="0.1" value="4" class="form-input" id="addThreshold">
+          </div>
+        </div>
+        <div class="form-row-2">
+          <div class="form-field">
+            <label class="form-label">Status</label>
+            <select class="form-input" id="addStatus">
+              <option value="pending">Pending</option>
+              <option value="active">Active</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Business ID</label>
+            <input type="text" class="form-input" id="addBusinessId" disabled>
+          </div>
+        </div>
+      </form>
+      <div class="admin-modal-footer">
+        <button class="admin-btn" type="button" data-close="add">Cancel</button>
+        <button class="admin-btn primary" type="button" id="createBusinessBtn">Create Business</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm Modal (Suspend / Approve / Delete) -->
+  <div class="admin-modal-overlay" id="confirmModalOverlay">
+    <div class="admin-modal admin-modal-sm">
+      <div class="admin-confirm-icon" id="confirmIcon">⛔</div>
+      <h2 class="admin-modal-title" id="confirmTitle">Suspend Business?</h2>
+      <p class="admin-confirm-text" id="confirmText">This business will no longer be able to access Graphura ReviewFlow.</p>
+      <div class="admin-modal-footer">
+        <button class="admin-btn" type="button" data-close="confirm">Cancel</button>
+        <button class="admin-btn primary" type="button" id="confirmActionBtn">Suspend</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+<script src="../shared/constants.js?v=20260705"></script>
+<script src="../shared/utils.js?v=20260705"></script>
+<script src="../shared/mock-data.js?v=20260705"></script>
+<script src="js/businesses.js?v=20260705"></script>
+</body>
+</html>

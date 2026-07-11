@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cafe Aroma | Almost Done</title>
+<link rel="stylesheet" href="../shared/shared.css">
+  <link rel="stylesheet" href="customer.css">
+</head>
+<body class="landing-body">
+
+  <main class="landing-wrapper">
+    <div class="landing-card questionnaire-card">
+
+      <div class="brand-block">
+        <div class="logo-ring">
+          <div class="logo-placeholder" id="bizLogo">CA</div>
+        </div>
+
+        <h2 class="business-name" id="bizName">Cafe Aroma</h2>
+
+        <div class="rating-badge"><span class="rating-star">★</span><span id="bizRating">4.8</span> Google Rating</div>
+      </div>
+
+      <div class="step-progress">
+        <span class="step-seg filled"></span>
+        <span class="step-seg filled"></span>
+      </div>
+      <span class="page-eyebrow">Step 2 of 2</span>
+
+      <h1 class="welcome-heading">Almost Done!</h1>
+
+      <p class="landing-desc">
+        Tell us your overall opinion before we generate your review.
+      </p>
+
+      <form id="ratingForm" class="questionnaire-form">
+
+        <div class="q-group" data-group="overall">
+          <label class="q-label"><span class="q-icon">⭐</span>Overall Experience</label>
+          <div class="star-rating small" data-key="overall">
+            <span class="star" data-value="1">★</span>
+            <span class="star" data-value="2">★</span>
+            <span class="star" data-value="3">★</span>
+            <span class="star" data-value="4">★</span>
+            <span class="star" data-value="5">★</span>
+          </div>
+        </div>
+
+        <div class="q-group" data-group="recommend">
+          <label class="q-label"><span class="q-icon">🎯</span>Would you recommend us?</label>
+          <div class="recommend-options">
+            <label class="radio-pill">
+              <input type="radio" name="recommend" value="Definitely">
+              <span>Definitely</span>
+            </label>
+            <label class="radio-pill">
+              <input type="radio" name="recommend" value="Maybe">
+              <span>Maybe</span>
+            </label>
+            <label class="radio-pill">
+              <input type="radio" name="recommend" value="No">
+              <span>No</span>
+            </label>
+          </div>
+        </div>
+
+        <p id="validationMsg" class="validation-msg"></p>
+
+        <button type="submit" class="cta-btn">Generate AI Review</button>
+
+      </form>
+
+      <p class="powered-by">Powered by <span>Graphura's ReviewFlow</span></p>
+
+    </div>
+  </main>
+
+<script src="../shared/business-config.js"></script>
+<script src="../shared/constants.js"></script>
+<script src="../shared/utils.js"></script>
+<script src="js/rating.js"></script>
+</body>
+</html>

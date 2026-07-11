@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graphura ReviewFlow | Business Settings</title>
+<link rel="stylesheet" href="../shared/shared.css?v=20260705">
+<link rel="stylesheet" href="owner.css?v=20260705">
+</head>
+<body class="landing-body dashboard-body">
+
+  <div class="dashboard-shell settings-shell">
+
+    <header class="settings-header">
+      <div class="settings-header-left">
+        <a href="dashboard.html" class="back-link">← Back to Dashboard</a>
+        <h1 class="welcome-heading dashboard-heading settings-title">Business Profile &amp; Preferences</h1>
+        <p class="landing-desc dashboard-subtitle">Manage your business profile, Google Review integration and AI review preferences.</p>
+      </div>
+      <div class="settings-header-right">
+        <span class="settings-business-pill" id="bizPill">Cafe Aroma</span>
+        <button type="button" class="cta-btn settings-save-top" id="saveTopBtn">Save Changes</button>
+      </div>
+    </header>
+
+    <form id="settingsForm" class="settings-form" novalidate>
+
+      <!-- Section 1: Business Information -->
+      <section class="settings-card">
+        <h2 class="section-title">Business Information</h2>
+
+        <div class="settings-grid">
+          <div class="form-field">
+            <label class="form-label" for="bizName">Business Name</label>
+            <input type="text" id="bizName" class="form-input" value="Cafe Aroma" data-required="true">
+            <p class="field-error" id="bizNameError"></p>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="bizCategory">Business Category</label>
+            <select id="bizCategory" class="form-input form-select">
+              <option value="Restaurant">Restaurant</option>
+              <option value="Cafe">Cafe</option>
+              <option value="Bakery">Bakery</option>
+              <option value="Salon">Salon</option>
+              <option value="Hotel">Hotel</option>
+              <option value="Spa">Spa</option>
+              <option value="Gym">Gym</option>
+              <option value="Clinic">Clinic</option>
+            </select>
+          </div>
+
+          <div class="form-field form-field-full">
+            <label class="form-label" for="bizDescription">Description</label>
+            <textarea id="bizDescription" class="form-input form-textarea" rows="3" placeholder="Tell customers what makes your business special..."></textarea>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="bizPhone">Phone Number</label>
+            <input type="tel" id="bizPhone" class="form-input" placeholder="+91 98765 43210" data-required="true">
+            <p class="field-error" id="bizPhoneError"></p>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="bizEmail">Business Email</label>
+            <input type="email" id="bizEmail" class="form-input" placeholder="hello@cafearoma.com" data-required="true">
+            <p class="field-error" id="bizEmailError"></p>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="bizWebsite">Website</label>
+            <input type="text" id="bizWebsite" class="form-input" placeholder="https://cafearoma.com">
+            <p class="field-error" id="bizWebsiteError"></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Business Address -->
+      <section class="settings-card">
+        <h2 class="section-title">Business Address</h2>
+
+        <div class="settings-grid">
+          <div class="form-field form-field-full">
+            <label class="form-label" for="addrLine">Address Line</label>
+            <input type="text" id="addrLine" class="form-input" placeholder="Shop No. 4, MG Road">
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="addrCity">City</label>
+            <input type="text" id="addrCity" class="form-input">
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="addrState">State</label>
+            <input type="text" id="addrState" class="form-input">
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="addrPin">PIN Code</label>
+            <input type="text" id="addrPin" class="form-input">
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="addrCountry">Country</label>
+            <input type="text" id="addrCountry" class="form-input">
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Branding -->
+      <section class="settings-card">
+        <h2 class="section-title">Branding</h2>
+
+        <div class="branding-grid">
+          <div class="upload-card">
+            <div class="upload-preview logo-preview" id="logoPreview">CA</div>
+            <p class="upload-label">Business Logo</p>
+            <label class="btn-secondary upload-btn">
+              Upload Logo
+              <input type="file" accept="image/*" class="upload-input" id="logoUpload" hidden>
+            </label>
+          </div>
+
+          <div class="upload-card">
+            <div class="upload-preview cover-preview">🖼️</div>
+            <p class="upload-label">Cover Image</p>
+            <label class="btn-secondary upload-btn">
+              Upload Cover
+              <input type="file" accept="image/*" class="upload-input" id="coverUpload" hidden>
+            </label>
+          </div>
+
+          <div class="business-preview-card">
+            <p class="upload-label">Business Preview</p>
+            <div class="preview-inner">
+              <div class="logo-placeholder small-logo" id="previewLogo">CA</div>
+              <div class="preview-text">
+                <span class="preview-name" id="previewName">Cafe Aroma</span>
+                <span class="preview-stars" id="previewStars">★★★★☆</span>
+                <span class="preview-category" id="previewCategory">Restaurant</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Google Review Integration -->
+      <section class="settings-card">
+        <h2 class="section-title">Google Review Integration</h2>
+
+        <div class="settings-grid">
+          <div class="form-field form-field-full">
+            <label class="form-label" for="googleUrl">Google Review URL</label>
+            <input type="text" id="googleUrl" class="form-input" placeholder="https://g.page/r/your-business/review">
+            <p class="field-error" id="googleUrlError"></p>
+          </div>
+
+          <div class="form-field form-field-full">
+            <label class="form-label" for="googlePlaceId">Google Place ID <span class="optional-tag">(Optional)</span></label>
+            <input type="text" id="googlePlaceId" class="form-input" placeholder="ChIJ...">
+          </div>
+        </div>
+
+        <div class="google-actions">
+          <button type="button" class="btn-secondary" id="verifyConnectionBtn">Verify Connection</button>
+          <button type="button" class="btn-secondary" id="generateQrBtn">Generate QR Code</button>
+        </div>
+      </section>
+
+      <!-- Section 5: AI Review Preferences -->
+      <section class="settings-card">
+        <h2 class="section-title">AI Review Preferences</h2>
+
+        <div class="ai-pref-block">
+          <label class="pref-label">Review Tone</label>
+          <div class="tone-cards" role="radiogroup" aria-label="Review Tone" id="toneCards">
+            <label class="tone-card">
+              <input type="radio" name="reviewTone" value="Professional">
+              <span class="tone-card-inner">
+                <span class="tone-icon">💼</span>
+                <span class="tone-name">Professional</span>
+              </span>
+            </label>
+            <label class="tone-card">
+              <input type="radio" name="reviewTone" value="Friendly">
+              <span class="tone-card-inner">
+                <span class="tone-icon">🙂</span>
+                <span class="tone-name">Friendly</span>
+              </span>
+            </label>
+            <label class="tone-card">
+              <input type="radio" name="reviewTone" value="Casual">
+              <span class="tone-card-inner">
+                <span class="tone-icon">✌️</span>
+                <span class="tone-name">Casual</span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="ai-pref-block">
+          <label class="pref-label">Review Length</label>
+          <div class="segmented-control" role="radiogroup" aria-label="Review Length" id="lengthSegmentedControl">
+            <button type="button" class="segment" data-value="Short">Short</button>
+            <button type="button" class="segment" data-value="Medium">Medium</button>
+            <button type="button" class="segment" data-value="Long">Long</button>
+          </div>
+          <input type="hidden" id="reviewLength">
+        </div>
+
+        <div class="ai-pref-block ai-pref-row">
+          <div>
+            <label class="pref-label" for="emojiToggle">Emoji Usage</label>
+            <p class="pref-helper">Allow the AI to include emojis in generated reviews.</p>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="emojiToggle">
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          </label>
+        </div>
+
+        <div class="ai-pref-block">
+          <label class="form-label" for="aiLanguage">Language</label>
+          <select id="aiLanguage" class="form-input form-select ai-language-select">
+            <option value="English">English</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Marathi">Marathi</option>
+            <option value="Auto Detect">Auto Detect</option>
+          </select>
+        </div>
+
+        <p class="ai-pref-note">These preferences influence how AI generates customer reviews.</p>
+      </section>
+
+      <!-- Section 6: Notification Preferences -->
+      <section class="settings-card">
+        <h2 class="section-title">Notification Preferences</h2>
+
+        <div class="notif-list">
+          <div class="notif-row">
+            <span class="notif-label">Email when a new review arrives</span>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            </label>
+          </div>
+          <div class="notif-row">
+            <span class="notif-label">Weekly analytics report</span>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            </label>
+          </div>
+          <div class="notif-row">
+            <span class="notif-label">Low rating alerts</span>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            </label>
+          </div>
+          <div class="notif-row">
+            <span class="notif-label">Monthly business insights</span>
+            <label class="toggle-switch">
+              <input type="checkbox">
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 7: Danger Zone -->
+      <section class="settings-card danger-zone-card">
+        <h2 class="section-title danger-title">Danger Zone</h2>
+        <div class="danger-row">
+          <div>
+            <p class="danger-text">Reset all preferences back to their default values.</p>
+            <p class="pref-helper">This won't affect your reviews or business data.</p>
+          </div>
+          <button type="button" class="btn-danger" id="resetPrefsBtn">Reset Preferences</button>
+        </div>
+      </section>
+
+    </form>
+
+  </div>
+
+  <!-- Sticky Bottom Action Bar -->
+  <div class="bottom-action-bar">
+    <button type="button" class="btn-secondary" id="cancelBtn">Cancel</button>
+    <button type="submit" form="settingsForm" class="cta-btn" id="saveBottomBtn">Save Changes</button>
+  </div>
+
+  <!-- Reset Confirmation Modal -->
+  <div class="modal-overlay" id="resetModalOverlay">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="resetModalTitle">
+      <h3 class="modal-title" id="resetModalTitle">Reset Preferences?</h3>
+      <p class="modal-text">This will reset your AI review preferences and notification settings to default. This action cannot be undone.</p>
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" id="modalCancelBtn">Cancel</button>
+        <button type="button" class="btn-danger" id="modalConfirmBtn">Yes, Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+<script src="../shared/business-config.js?v=20260705"></script>
+<script src="../shared/utils.js?v=20260705"></script>
+<script src="js/settings.js?v=20260705"></script>
+</body>
+</html>

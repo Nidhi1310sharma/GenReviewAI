@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graphura ReviewFlow | Review Monitoring</title>
+<link rel="stylesheet" href="../shared/shared.css?v=20260706">
+<link rel="stylesheet" href="admin.css?v=20260706">
+<style>
+  /* ---------- Page-specific additions for Review Monitoring ---------- */
+  .admin-rating-bars { display: flex; flex-direction: column; gap: 14px; }
+  .admin-rating-bar-row { display: flex; align-items: center; gap: 12px; }
+  .admin-rating-bar-label { width: 92px; font-size: 13px; color: var(--gold-deep); font-weight: 700; letter-spacing: 0.01em; flex-shrink: 0; }
+  .admin-rating-bar-track { flex: 1; height: 10px; border-radius: 999px; background: var(--bg-surface); border: 1px solid var(--border-subtle); overflow: hidden; }
+  .admin-rating-bar-fill { height: 100%; width: 0%; border-radius: 999px; background: linear-gradient(90deg, var(--gold), var(--gold-deep)); transition: width 1.1s var(--ease); }
+  .admin-rating-bar-value { width: 44px; text-align: right; font-size: 13px; font-weight: 700; color: var(--text-body); flex-shrink: 0; }
+
+  .admin-complaint-bars { display: flex; flex-direction: column; gap: 14px; }
+  .admin-complaint-bar-row-head { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-body); font-weight: 600; margin-bottom: 6px; }
+  .admin-complaint-bar-track { height: 8px; border-radius: 999px; background: var(--bg-surface); border: 1px solid var(--border-subtle); overflow: hidden; }
+  .admin-complaint-bar-fill { height: 100%; width: 0%; border-radius: 999px; background: linear-gradient(90deg, var(--danger), #F08880); transition: width 1.1s var(--ease); }
+
+  .admin-timeline { display: flex; flex-direction: column; }
+  .admin-timeline-item { position: relative; padding: 0 0 22px 26px; }
+  .admin-timeline-item:last-child { padding-bottom: 0; }
+  .admin-timeline-item::before { content: ""; position: absolute; left: 4px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-light); }
+  .admin-timeline-item::after { content: ""; position: absolute; left: 8px; top: 14px; bottom: 0; width: 2px; background: var(--border-subtle); }
+  .admin-timeline-item:last-child::after { display: none; }
+  .admin-timeline-label { font-size: 13.5px; font-weight: 700; color: var(--text-dark); }
+  .admin-timeline-time { font-size: 12px; color: var(--text-faint); margin-top: 2px; font-weight: 600; }
+
+  .admin-feedback-list { display: flex; flex-direction: column; gap: 14px; }
+  .admin-feedback-card { border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px 16px; background: var(--bg-surface); }
+  .admin-feedback-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .admin-feedback-business { font-size: 13.5px; font-weight: 700; color: var(--text-dark); }
+  .admin-feedback-rating { font-size: 12.5px; color: var(--gold-deep); font-weight: 700; }
+  .admin-feedback-text { font-size: 13px; color: var(--text-muted); font-style: italic; line-height: 1.5; }
+
+  .admin-review-status-published { background: rgba(23, 166, 115, 0.12); color: var(--success); }
+  .admin-review-status-pending-sync { background: rgba(231, 169, 63, 0.14); color: var(--gold-deep); }
+  .admin-review-status-private { background: rgba(113, 113, 138, 0.12); color: var(--text-muted); }
+  .admin-review-status-ai-draft { background: var(--accent-light); color: var(--accent); }
+
+  .admin-ai-status-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: var(--bg-surface); border: 1px solid var(--border-subtle); color: var(--text-body); white-space: nowrap; }
+  .admin-ai-status-ai-failed { color: var(--danger); border-color: rgba(225,72,63,0.24); background: rgba(225,72,63,0.08); }
+
+  .admin-view-review-text { border: 1px solid var(--border-subtle); background: var(--bg-surface); border-radius: var(--radius-md); padding: 14px 16px; font-size: 13.5px; color: var(--text-body); line-height: 1.6; margin-top: 4px; }
+</style>
+</head>
+<body class="landing-body admin-body">
+
+  <div class="admin-shell">
+
+    <header class="admin-header">
+      <div class="admin-header-brand">
+        <img src="../admin/graphura-logo.png" alt="Graphura logo" class="admin-header-logo">
+        <div class="admin-header-brand-text">
+          <span class="admin-header-product">Graphura's ReviewFlow</span>
+          <span class="admin-header-role">Review Monitoring</span>
+        </div>
+      </div>
+
+      <div class="admin-header-meta">
+        <span class="admin-header-date" id="headerDate"></span>
+        <div class="admin-header-avatar" title="Administrator">A</div>
+        <button id="logoutBtn" class="admin-logout-btn" type="button">Logout</button>
+      </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="admin-nav-tabs" id="adminNavTabs">
+      <a class="admin-nav-tab" href="dashboard.html" data-nav="dashboard">Dashboard</a>
+      <a class="admin-nav-tab" href="businesses.html" data-nav="businesses">Business Management</a>
+      <a class="admin-nav-tab" href="owners.html" data-nav="owners">Owner Management</a>
+      <a class="admin-nav-tab active" href="reviews.html" data-nav="reviews">Review Monitoring</a>
+      <button class="admin-nav-tab" type="button" data-nav="analytics">Platform Analytics</button>
+      <button class="admin-nav-tab" type="button" data-nav="settings">Platform Settings</button>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="admin-page-header">
+      <div class="admin-page-header-text">
+        <span class="admin-page-eyebrow">Graphura ReviewFlow</span>
+        <h1 class="admin-page-title">Review Monitoring</h1>
+        <p class="admin-page-subtitle">Monitor customer reviews, private feedback and platform-wide review activity.</p>
+      </div>
+      <div class="admin-page-header-actions">
+        <button class="admin-btn" type="button" id="exportCsvBtn"><span>📊</span>Export CSV</button>
+        <button class="admin-btn primary" type="button" id="refreshBtn"><span>🔄</span>Refresh</button>
+      </div>
+    </section>
+
+    <!-- Review KPI Cards -->
+    <section class="admin-kpi-grid" id="reviewKpiGrid">
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon">📝</div>
+        <div class="admin-kpi-value" data-count="18420">0</div>
+        <div class="admin-kpi-label">Total Reviews</div>
+      </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon green">👍</div>
+        <div class="admin-kpi-value" data-count="15970">0</div>
+        <div class="admin-kpi-label">Positive Reviews</div>
+      </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon gold">🔒</div>
+        <div class="admin-kpi-value" data-count="1245">0</div>
+        <div class="admin-kpi-label">Private Feedback</div>
+      </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon gold">⭐</div>
+        <div class="admin-kpi-value" data-count="4.74" data-decimal="2" data-suffix="★">0</div>
+        <div class="admin-kpi-label">Average Rating</div>
+      </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon">✨</div>
+        <div class="admin-kpi-value" data-count="13875">0</div>
+        <div class="admin-kpi-label">AI Reviews Generated</div>
+      </div>
+      <div class="admin-kpi-card">
+        <div class="admin-kpi-icon green">📅</div>
+        <div class="admin-kpi-value" data-count="182">0</div>
+        <div class="admin-kpi-label">Reviews Today</div>
+      </div>
+    </section>
+
+    <!-- Main layout: Table + Sidebar -->
+    <div class="admin-biz-layout">
+
+      <div>
+        <!-- Search + Filters -->
+        <section class="admin-toolbar">
+          <div class="admin-search-wrap">
+            <span class="admin-search-icon">🔍</span>
+            <input type="text" class="admin-search-input" id="reviewSearchInput" placeholder="Search reviews...">
+          </div>
+        </section>
+
+        <section class="admin-chips-row" id="reviewFilterChips" style="margin-bottom: 18px; flex-wrap: wrap;">
+          <button class="admin-chip active" type="button" data-filter="all">All</button>
+          <button class="admin-chip" type="button" data-filter="rating:5">★★★★★</button>
+          <button class="admin-chip" type="button" data-filter="rating:4">★★★★☆</button>
+          <button class="admin-chip" type="button" data-filter="rating:3">★★★☆☆</button>
+          <button class="admin-chip" type="button" data-filter="rating:2">★★☆☆☆</button>
+          <button class="admin-chip" type="button" data-filter="rating:1">★☆☆☆☆</button>
+          <button class="admin-chip" type="button" data-filter="category:Restaurant">Restaurant</button>
+          <button class="admin-chip" type="button" data-filter="category:Cafe">Cafe</button>
+          <button class="admin-chip" type="button" data-filter="category:Salon">Salon</button>
+          <button class="admin-chip" type="button" data-filter="category:Retail">Retail</button>
+          <button class="admin-chip" type="button" data-filter="category:Clinic">Clinic</button>
+          <button class="admin-chip" type="button" data-filter="sentiment:positive">Positive</button>
+          <button class="admin-chip" type="button" data-filter="sentiment:attention">Needs Attention</button>
+        </section>
+
+        <!-- Review Table -->
+        <section class="admin-table-section admin-card">
+          <h2 class="admin-section-title">All Reviews</h2>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Review ID</th>
+                  <th>Business</th>
+                  <th>Category</th>
+                  <th>Rating</th>
+                  <th>AI Status</th>
+                  <th>Review Status</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="reviewTableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="admin-empty-state" id="reviewEmptyState">
+            <div class="admin-empty-icon">🔍</div>
+            <div class="admin-empty-title">No reviews found.</div>
+            <div class="admin-empty-subtitle">Try changing your filters.</div>
+          </div>
+
+          <div class="admin-pagination" id="reviewPagination">
+            <button class="admin-page-btn" type="button" data-page="prev">Previous</button>
+            <button class="admin-page-btn active" type="button" data-page="1">1</button>
+            <button class="admin-page-btn" type="button" data-page="2">2</button>
+            <button class="admin-page-btn" type="button" data-page="3">3</button>
+            <button class="admin-page-btn" type="button" data-page="next">Next</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="admin-biz-sidebar">
+
+        <div class="admin-card">
+          <h2 class="admin-section-title">Review Activity Timeline</h2>
+          <div class="admin-timeline" id="reviewTimelineList"></div>
+        </div>
+
+        <div class="admin-card">
+          <h2 class="admin-section-title">Rating Distribution</h2>
+          <div class="admin-rating-bars" id="ratingDistribution"></div>
+        </div>
+
+        <div class="admin-card">
+          <h2 class="admin-section-title">Businesses Requiring Attention</h2>
+          <div class="admin-table-wrap">
+            <table class="admin-table" id="attentionTable">
+              <thead>
+                <tr><th>Business</th><th>Issue</th><th>Reviews</th></tr>
+              </thead>
+              <tbody id="attentionTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <h2 class="admin-section-title">Complaint Categories</h2>
+          <div class="admin-complaint-bars" id="complaintBars"></div>
+        </div>
+
+        <div class="admin-card">
+          <h2 class="admin-section-title">Recent Private Feedback</h2>
+          <div class="admin-feedback-list" id="privateFeedbackList"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- AI Review Insights -->
+    <section class="admin-ai-card">
+      <div class="admin-ai-header">
+        <span class="admin-ai-icon">✨</span>
+        <h2 class="admin-ai-title">AI Review Insights</h2>
+      </div>
+      <div class="admin-ai-grid" id="reviewAiGrid">
+        <div class="admin-ai-stat">
+          <span class="admin-ai-stat-value">75%</span>
+          <span class="admin-ai-stat-label">Average AI Usage</span>
+        </div>
+        <div class="admin-ai-stat">
+          <span class="admin-ai-stat-value">Restaurant</span>
+          <span class="admin-ai-stat-label">Most Positive Category</span>
+        </div>
+        <div class="admin-ai-stat">
+          <span class="admin-ai-stat-value">Salon</span>
+          <span class="admin-ai-stat-label">Most Complaints</span>
+        </div>
+        <div class="admin-ai-stat">
+          <span class="admin-ai-stat-value">18</span>
+          <span class="admin-ai-stat-label">Businesses with Rising Ratings</span>
+        </div>
+      </div>
+      <div class="admin-ai-recommendation">
+        <span>💡</span>
+        <span><strong>Recommendation:</strong> Focus follow-up campaigns on businesses receiving repeated private feedback.</span>
+      </div>
+    </section>
+
+    <!-- Footer Actions -->
+    <section class="admin-footer-actions">
+      <button type="button" class="admin-footer-btn" id="exportCsvFooterBtn"><span>📊</span>Export CSV</button>
+      <button type="button" class="admin-footer-btn" id="exportPdfBtn"><span>📄</span>Export PDF</button>
+      <button type="button" class="admin-footer-btn primary" id="refreshDataBtn"><span>🔄</span>Refresh Data</button>
+    </section>
+
+  </div>
+
+  <!-- View Review Modal -->
+  <div class="admin-modal-overlay" id="viewModalOverlay">
+    <div class="admin-modal">
+      <div class="admin-view-header">
+        <div class="admin-view-avatar" id="viewAvatar">RV</div>
+        <div class="admin-view-header-text">
+          <div class="admin-view-name" id="viewBusiness">Cafe Aroma</div>
+          <div class="admin-view-id" id="viewReviewId">REV-1001</div>
+        </div>
+        <button class="admin-modal-close" type="button" data-close="view" style="margin-left:auto;">✕</button>
+      </div>
+      <div class="admin-view-grid" id="viewGrid"></div>
+      <div id="viewReviewTextWrap" style="margin-top:16px;">
+        <span class="admin-view-field-label">Review Text</span>
+        <div class="admin-view-review-text" id="viewReviewText"></div>
+      </div>
+      <div class="admin-modal-footer">
+        <button class="admin-btn" type="button" data-close="view">Close</button>
+        <button class="admin-btn primary" type="button" id="viewDownloadBtn">Download</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+<script src="../shared/constants.js?v=20260706"></script>
+<script src="../shared/utils.js?v=20260706"></script>
+<script src="../shared/mock-data.js?v=20260706"></script>
+<script src="js/reviews.js?v=20260706"></script>
+</body>
+</html>

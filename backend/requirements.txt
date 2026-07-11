@@ -1,0 +1,34 @@
+# --- Core framework ---
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+
+# --- Database ---
+sqlalchemy==2.0.35
+psycopg2-binary==2.9.9
+alembic==1.13.2
+supabase==2.11.0
+
+# --- Config / env ---
+pydantic==2.9.2
+pydantic-settings==2.5.2
+python-dotenv==1.0.1
+
+# --- Auth (wired up in Module 2, listed now so the env is ready) ---
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.9
+
+# --- ML inference (Module 5) ---
+# Pinned to match the version the .pkl files in ml/ were trained with
+# (see ml/model_metadata.json). A newer scikit-learn still works but throws
+# an InconsistentVersionWarning on load — pin this exactly to keep it silent.
+scikit-learn==1.5.1
+joblib==1.4.2
+numpy==1.26.4
+
+# --- Email (Module 7 / notifications) ---
+fastapi-mail==1.4.1
+
+# --- Testing ---
+pytest==8.3.3
+httpx==0.27.2

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graphura ReviewFlow | Platform Analytics</title>
+<link rel="stylesheet" href="../shared/shared.css?v=20260706">
+<link rel="stylesheet" href="admin.css?v=20260706">
+</head>
+<body class="landing-body admin-body">
+
+  <div class="admin-shell">
+
+    <!-- Header -->
+    <header class="admin-header">
+      <div class="admin-header-brand">
+        <img src="../admin/graphura-logo.png" alt="Graphura logo" class="admin-header-logo">
+        <div class="admin-header-brand-text">
+          <span class="admin-header-product">Graphura's ReviewFlow</span>
+          <span class="admin-header-role">Platform Analytics</span>
+        </div>
+      </div>
+
+      <div class="admin-header-meta">
+        <span class="admin-header-date" id="headerDate"></span>
+        <div class="admin-header-avatar" title="Administrator">A</div>
+        <button id="logoutBtn" class="admin-logout-btn" type="button">Logout</button>
+      </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="admin-nav-tabs" id="adminNavTabs">
+      <a class="admin-nav-tab" href="dashboard.html" data-nav="dashboard">Dashboard</a>
+      <a class="admin-nav-tab" href="businesses.html" data-nav="businesses">Business Management</a>
+      <a class="admin-nav-tab" href="owners.html" data-nav="owners">Owner Management</a>
+      <a class="admin-nav-tab" href="reviews.html" data-nav="reviews">Review Monitoring</a>
+      <a class="admin-nav-tab active" href="analytics.html" data-nav="analytics">Platform Analytics</a>
+      <button class="admin-nav-tab" type="button" data-nav="settings">Platform Settings</button>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="admin-page-header">
+      <div class="admin-page-header-text">
+        <span class="admin-page-eyebrow">Graphura ReviewFlow</span>
+        <h1 class="admin-page-title">Platform Analytics</h1>
+        <p class="admin-page-subtitle">Analyze platform-wide growth, review performance and AI adoption.</p>
+      </div>
+      <div class="admin-page-header-actions">
+        <button class="admin-btn" type="button" id="exportReportBtnHeader"><span>📄</span>Export Report</button>
+        <button class="admin-btn primary" type="button" id="refreshBtnHeader"><span>🔄</span>Refresh</button>
+      </div>
+    </section>
+
+    <!-- Time Filters Toolbar -->
+    <section class="admin-toolbar" style="margin-bottom: 24px;">
+      <div class="admin-chips-row" id="timeFilterChips">
+        <button class="admin-chip" type="button" data-period="today">Today</button>
+        <button class="admin-chip" type="button" data-period="last7days">Last 7 Days</button>
+        <button class="admin-chip active" type="button" data-period="last30days">Last 30 Days</button>
+        <button class="admin-chip" type="button" data-period="last6months">Last 6 Months</button>
+        <button class="admin-chip" type="button" data-period="lastyear">Last Year</button>
+        <button class="admin-chip" type="button" data-period="custom">Custom Range</button>
+      </div>
+      <div class="admin-custom-range-picker" id="customRangePicker">
+        <input type="date" id="startDate" value="2026-06-01">
+        <span style="color: var(--text-faint); font-weight: bold; font-size: 11px;">TO</span>
+        <input type="date" id="endDate" value="2026-06-30">
+        <button class="admin-btn primary" type="button" id="applyCustomRangeBtn" style="padding: 4px 10px; font-size: 11px; border-radius: var(--radius-sm);">Apply</button>
+      </div>
+    </section>
+
+    <!-- Animated KPI Cards -->
+    <section class="admin-kpi-grid" id="analyticsKpiGrid">
+      <div class="admin-kpi-card" style="position: relative;">
+        <div class="admin-kpi-icon">🏢</div>
+        <div class="admin-kpi-value" id="kpiBusinessesVal" data-count="35">0</div>
+        <div class="admin-kpi-label">Total Businesses</div>
+        <div class="admin-activity-time" id="kpiBusinessesSub" style="margin-top: 4px; font-size: 11px;">+35 registered this month</div>
+      </div>
+      <div class="admin-kpi-card" style="position: relative;">
+        <div class="admin-kpi-icon">👤</div>
+        <div class="admin-kpi-value" id="kpiOwnersVal" data-count="214">0</div>
+        <div class="admin-kpi-label">Active Owners</div>
+        <div class="admin-activity-time" id="kpiOwnersSub" style="margin-top: 4px; font-size: 11px;">82% active owners rate</div>
+      </div>
+      <div class="admin-kpi-card" style="position: relative;">
+        <div class="admin-kpi-icon">📝</div>
+        <div class="admin-kpi-value" id="kpiReviewsVal" data-count="5210">0</div>
+        <div class="admin-kpi-label">Total Reviews</div>
+        <div class="admin-activity-time" id="kpiReviewsSub" style="margin-top: 4px; font-size: 11px;">Avg 4.76 / 5</div>
+      </div>
+      <div class="admin-kpi-card" style="position: relative;">
+        <div class="admin-kpi-icon">📱</div>
+        <div class="admin-kpi-value" id="kpiScansVal" data-count="18450">0</div>
+        <div class="admin-kpi-label">QR Scans</div>
+        <div class="admin-activity-time" id="kpiScansSub" style="margin-top: 4px; font-size: 11px;">28.2% conversion rate</div>
+      </div>
+      <div class="admin-kpi-card" style="position: relative;">
+        <div class="admin-kpi-icon">✨</div>
+        <div class="admin-kpi-value" id="kpiAiVal" data-count="3820">0</div>
+        <div class="admin-kpi-label">AI Generated</div>
+        <div class="admin-activity-time" id="kpiAiSub" style="margin-top: 4px; font-size: 11px;">73.3% AI adoption rate</div>
+      </div>
+      <div class="admin-kpi-card" style="position: relative;">
+        <div class="admin-kpi-icon green">💚</div>
+        <div class="admin-kpi-value" id="kpiRatingVal" data-count="4.76" data-decimal="2">0</div>
+        <div class="admin-kpi-label">Platform Rating</div>
+        <div class="admin-activity-time" id="kpiRatingSub" style="margin-top: 4px; font-size: 11px;">Stable customer vibe</div>
+      </div>
+    </section>
+
+    <!-- Growth Line Charts Bento Section -->
+    <div class="admin-analytics-grid-2">
+      <!-- Platform Growth Chart -->
+      <div class="admin-card" style="position: relative;">
+        <div class="admin-card-loading-mask" id="growthLoader">
+          <div class="spinner"></div>
+        </div>
+        <h2 class="admin-section-title" id="growthChartTitle">Platform Growth — Total Businesses</h2>
+        <div class="admin-growth-chart-wrap">
+          <svg class="admin-growth-svg" id="platformGrowthSvg" viewBox="0 0 600 240" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="analyticsGrowthFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#5B4FE8" stop-opacity="0.25"/>
+                <stop offset="100%" stop-color="#5B4FE8" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <polygon id="platformGrowthArea" points="" fill="url(#analyticsGrowthFill)"></polygon>
+            <polyline id="platformGrowthLine" points="" fill="none" stroke="#5B4FE8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+            <g id="platformGrowthDots"></g>
+          </svg>
+          <div class="admin-growth-x-labels" id="platformGrowthXLabels">
+            <span>Wk 1</span><span>Wk 2</span><span>Wk 3</span><span>Wk 4</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reviews Growth Chart -->
+      <div class="admin-card" style="position: relative;">
+        <div class="admin-card-loading-mask" id="reviewsLoader">
+          <div class="spinner"></div>
+        </div>
+        <h2 class="admin-section-title" id="reviewsChartTitle">Reviews Growth — Cumulative Total</h2>
+        <div class="admin-growth-chart-wrap">
+          <svg class="admin-growth-svg" id="reviewsGrowthSvg" viewBox="0 0 600 240" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="analyticsReviewsFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#10B981" stop-opacity="0.25"/>
+                <stop offset="100%" stop-color="#10B981" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <polygon id="reviewsGrowthArea" points="" fill="url(#analyticsReviewsFill)"></polygon>
+            <polyline id="reviewsGrowthLine" points="" fill="none" stroke="#10B981" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+            <g id="reviewsGrowthDots"></g>
+          </svg>
+          <div class="admin-growth-x-labels" id="reviewsGrowthXLabels">
+            <span>Wk 1</span><span>Wk 2</span><span>Wk 3</span><span>Wk 4</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Funnel and Rating Distributions -->
+    <div class="admin-analytics-grid-2">
+      <!-- Google Review Funnel -->
+      <div class="admin-card">
+        <h2 class="admin-section-title">Google Review Funnel</h2>
+        <div class="admin-funnel-wrap" id="funnelStagesList">
+          <!-- Stage 1 -->
+          <div class="admin-funnel-stage">
+            <div class="admin-funnel-bar-container">
+              <div class="admin-funnel-bar-fill" id="funnelBarScans" style="width: 100%;">
+                <span class="admin-funnel-label">Total QR Scans</span>
+              </div>
+            </div>
+            <span class="admin-funnel-value" id="funnelValScans">18,450</span>
+            <span class="admin-funnel-percent">100%</span>
+          </div>
+          <!-- Stage 2 -->
+          <div class="admin-funnel-stage">
+            <div class="admin-funnel-bar-container">
+              <div class="admin-funnel-bar-fill" id="funnelBarStarted" style="width: 48.2%;">
+                <span class="admin-funnel-label">Started Feedback</span>
+              </div>
+              <div class="admin-funnel-conversion" id="conversionScansToStarted">48.2% dropoff conversion</div>
+            </div>
+            <span class="admin-funnel-value" id="funnelValStarted">8,900</span>
+            <span class="admin-funnel-percent" id="funnelPctStarted">48.2%</span>
+          </div>
+          <!-- Stage 3 -->
+          <div class="admin-funnel-stage">
+            <div class="admin-funnel-bar-container">
+              <div class="admin-funnel-bar-fill" id="funnelBarCompleted" style="width: 34.8%;">
+                <span class="admin-funnel-label">Completed Form</span>
+              </div>
+              <div class="admin-funnel-conversion" id="conversionStartedToCompleted">72.1% form fill rate</div>
+            </div>
+            <span class="admin-funnel-value" id="funnelValCompleted">6,420</span>
+            <span class="admin-funnel-percent" id="funnelPctCompleted">34.8%</span>
+          </div>
+          <!-- Stage 4 -->
+          <div class="admin-funnel-stage">
+            <div class="admin-funnel-bar-container">
+              <div class="admin-funnel-bar-fill" id="funnelBarSent" style="width: 28.2%;">
+                <span class="admin-funnel-label">Synced to Google</span>
+              </div>
+              <div class="admin-funnel-conversion" id="conversionCompletedToSent">81.2% threshold sync</div>
+            </div>
+            <span class="admin-funnel-value" id="funnelValSent">5,210</span>
+            <span class="admin-funnel-percent" id="funnelPctSent">28.2%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rating and Sentiment Distributions -->
+      <div class="admin-analytics-grid-2" style="margin-bottom: 0; gap: 24px;">
+        <!-- Rating Distribution -->
+        <div class="admin-card">
+          <h2 class="admin-section-title">Rating Distribution</h2>
+          <div class="admin-progress-list" id="ratingDistributionList">
+            <!-- 5 Star -->
+            <div class="admin-progress-row">
+              <div class="admin-progress-row-head">
+                <span>⭐⭐⭐⭐★ (5)</span>
+                <span id="star5Pct">70%</span>
+              </div>
+              <div class="admin-progress-track">
+                <div class="admin-progress-fill" id="star5Fill" data-width="70" style="background: linear-gradient(90deg, var(--gold), var(--gold-deep));"></div>
+              </div>
+            </div>
+            <!-- 4 Star -->
+            <div class="admin-progress-row">
+              <div class="admin-progress-row-head">
+                <span>⭐⭐⭐⭐☆ (4)</span>
+                <span id="star4Pct">19%</span>
+              </div>
+              <div class="admin-progress-track">
+                <div class="admin-progress-fill" id="star4Fill" data-width="19" style="background: linear-gradient(90deg, var(--gold), var(--gold-deep));"></div>
+              </div>
+            </div>
+            <!-- 3 Star -->
+            <div class="admin-progress-row">
+              <div class="admin-progress-row-head">
+                <span>⭐⭐⭐☆☆ (3)</span>
+                <span id="star3Pct">6%</span>
+              </div>
+              <div class="admin-progress-track">
+                <div class="admin-progress-fill" id="star3Fill" data-width="6" style="background: linear-gradient(90deg, var(--gold), var(--gold-deep));"></div>
+              </div>
+            </div>
+            <!-- 2 Star -->
+            <div class="admin-progress-row">
+              <div class="admin-progress-row-head">
+                <span>⭐⭐☆☆☆ (2)</span>
+                <span id="star2Pct">3%</span>
+              </div>
+              <div class="admin-progress-track">
+                <div class="admin-progress-fill" id="star2Fill" data-width="3" style="background: linear-gradient(90deg, var(--gold), var(--gold-deep));"></div>
+              </div>
+            </div>
+            <!-- 1 Star -->
+            <div class="admin-progress-row">
+              <div class="admin-progress-row-head">
+                <span>⭐☆☆☆☆ (1)</span>
+                <span id="star1Pct">2%</span>
+              </div>
+              <div class="admin-progress-track">
+                <div class="admin-progress-fill" id="star1Fill" data-width="2" style="background: linear-gradient(90deg, var(--gold), var(--gold-deep));"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sentiment Distribution -->
+        <div class="admin-card">
+          <h2 class="admin-section-title">Sentiment Distribution</h2>
+          <div class="admin-donut-container" style="flex-direction: column; gap: 16px;">
+            <div class="admin-donut" id="sentimentDonut" style="width: 110px; height: 110px; background: conic-gradient(var(--success) 0% 89%, var(--text-faint) 89% 97%, var(--danger) 97% 100%);"></div>
+            <div class="admin-donut-legend" id="sentimentLegend" style="width: 100%;">
+              <div class="admin-donut-legend-row">
+                <span class="admin-donut-legend-label">
+                  <span class="admin-donut-dot" style="background: var(--success)"></span>Positive
+                </span>
+                <span class="admin-donut-legend-value" id="sentimentValPos">89%</span>
+              </div>
+              <div class="admin-donut-legend-row">
+                <span class="admin-donut-legend-label">
+                  <span class="admin-donut-dot" style="background: var(--text-faint)"></span>Neutral
+                </span>
+                <span class="admin-donut-legend-value" id="sentimentValNeu">8%</span>
+              </div>
+              <div class="admin-donut-legend-row">
+                <span class="admin-donut-legend-label">
+                  <span class="admin-donut-dot" style="background: var(--danger)"></span>Negative
+                </span>
+                <span class="admin-donut-legend-value" id="sentimentValNeg">3%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category Performance and AI Usage Section -->
+    <div class="admin-analytics-grid-2">
+      <!-- Business Category Performance -->
+      <div class="admin-card">
+        <h2 class="admin-section-title">Business Category Performance</h2>
+        <div class="admin-progress-list" id="categoryPerformanceList"></div>
+      </div>
+
+      <!-- AI Usage and Keywords Grid -->
+      <div class="admin-analytics-grid-2" style="margin-bottom: 0; gap: 24px;">
+        <!-- AI Usage Analytics -->
+        <div class="admin-card">
+          <h2 class="admin-section-title">AI Usage Analytics</h2>
+          <div class="admin-progress-list" style="gap: 12px;" id="aiUsageList">
+            <div class="admin-progress-row">
+              <div class="admin-progress-row-head">
+                <span>Auto-Generated (Published)</span>
+                <span id="aiValGen">3,820</span>
+              </div>
+              <div class="admin-progress-track">
+                <div class="admin-progress-fill" id="aiFillGen" data-width="73.3"></div>
+              </div>
+            </div>
+            <div class="admin-progress-row">
+              <div class="admin-progress-row-head">
+                <span>Modified by Owners</span>
+                <span id="aiValMod">940</span>
+              </div>
+              <div class="admin-progress-track">
+                <div class="admin-progress-fill" id="aiFillMod" data-width="18" style="background: linear-gradient(90deg, var(--gold), var(--gold-deep));"></div>
+              </div>
+            </div>
+            <div class="admin-progress-row">
+              <div class="admin-progress-row-head">
+                <span>Rejected / Manual draft</span>
+                <span id="aiValRej">350</span>
+              </div>
+              <div class="admin-progress-track">
+                <div class="admin-progress-fill" id="aiFillRej" data-width="6.7" style="background: linear-gradient(90deg, var(--danger), #e1483f);"></div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 11.5px; font-weight: 700; color: var(--text-muted);">AI ADOPTION RATE</span>
+            <span style="font-size: 14px; font-weight: 800; color: var(--accent);" id="aiAdoptionRate">73.3%</span>
+          </div>
+        </div>
+
+        <!-- Most Mentioned Keywords -->
+        <div class="admin-card">
+          <h2 class="admin-section-title">Most Mentioned Keywords</h2>
+          <div class="admin-keyword-cloud" id="keywordCloud"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grids of Performers and Attention Needed -->
+    <div class="admin-analytics-grid-2">
+      <!-- Top Performing Businesses -->
+      <div class="admin-card">
+        <h2 class="admin-section-title">Top Performing Businesses</h2>
+        <div id="topPerformingList"></div>
+      </div>
+
+      <!-- Businesses Requiring Attention -->
+      <div class="admin-card">
+        <h2 class="admin-section-title">Businesses Requiring Attention</h2>
+        <div id="attentionList"></div>
+      </div>
+    </div>
+
+    <!-- Peak Hours & City distribution / AI Insights -->
+    <div class="admin-analytics-grid-2">
+      <!-- Peak Review Hours & City Distribution -->
+      <div class="admin-analytics-grid-2" style="margin-bottom: 0; gap: 24px;">
+        <!-- Peak Review Hours -->
+        <div class="admin-card">
+          <h2 class="admin-section-title">Peak Review Hours</h2>
+          <div class="admin-progress-list" style="gap: 12px;" id="peakHoursList"></div>
+        </div>
+
+        <!-- City Distribution -->
+        <div class="admin-card">
+          <h2 class="admin-section-title">City Distribution</h2>
+          <div class="admin-progress-list" style="gap: 12px;" id="cityDistributionList"></div>
+        </div>
+      </div>
+
+      <!-- AI Platform Insights premium box -->
+      <section class="admin-ai-card" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 0;">
+        <div class="admin-ai-header" style="margin-bottom: 14px;">
+          <span class="admin-ai-icon">✨</span>
+          <h2 class="admin-ai-title">AI Platform Insights</h2>
+        </div>
+        <div class="admin-ai-recommendation" style="flex: 1; min-height: 80px; align-items: flex-start; gap: 10px; margin-bottom: 14px; background: rgba(255,255,255,0.11); border: 1.5px solid rgba(255,255,255,0.18);">
+          <span>💡</span>
+          <span id="aiInsightsText" style="line-height: 1.6; font-size: 13px; font-weight: 500;">AI Platform insights are loading...</span>
+        </div>
+        <div class="admin-ai-recommendation" style="background: rgba(231,169,63,0.12); border: 1.5px solid rgba(231,169,63,0.22); padding: 10px 14px; font-size: 11.5px;">
+          <span style="color: var(--gold)">★</span>
+          <span style="color: #fff; font-weight: 700;">Insight recommendations update instantly on period changes.</span>
+        </div>
+      </section>
+    </div>
+
+    <div style="height: 24px;"></div>
+
+    <!-- Monthly Comparison & Platform Health -->
+    <div class="admin-analytics-grid-2">
+      <!-- Period Comparison -->
+      <div class="admin-card">
+        <h2 class="admin-section-title">Period-over-Period Performance</h2>
+        <div class="admin-comparison-grid">
+          <div class="admin-comparison-item">
+            <div class="admin-comparison-label">QR Scans</div>
+            <div class="admin-comparison-value" id="compScansVal">18,450</div>
+            <div class="admin-comparison-diff up" id="compScansDiff">
+              <span>↑</span><span>+24.1%</span>
+            </div>
+          </div>
+          <div class="admin-comparison-item">
+            <div class="admin-comparison-label">Review Volume</div>
+            <div class="admin-comparison-value" id="compReviewsVal">5,210</div>
+            <div class="admin-comparison-diff up" id="compReviewsDiff">
+              <span>↑</span><span>+21.3%</span>
+            </div>
+          </div>
+          <div class="admin-comparison-item">
+            <div class="admin-comparison-label">AI Generations</div>
+            <div class="admin-comparison-value" id="compAiVal">3,820</div>
+            <div class="admin-comparison-diff up" id="compAiDiff">
+              <span>↑</span><span>+26.8%</span>
+            </div>
+          </div>
+          <div class="admin-comparison-item">
+            <div class="admin-comparison-label font-mono">Platform Rating</div>
+            <div class="admin-comparison-value" id="compRatingVal">4.76</div>
+            <div class="admin-comparison-diff up" id="compRatingDiff">
+              <span>↑</span><span>+0.05</span>
+            </div>
+          </div>
+        </div>
+        <div style="font-size: 11.5px; font-weight: 700; color: var(--text-faint); margin-top: 14px; text-transform: uppercase;" id="compPeriodLabel">COMPARED TO PREVIOUS MONTH</div>
+      </div>
+
+      <!-- Platform Health -->
+      <div class="admin-card">
+        <h2 class="admin-section-title">Platform Infrastructure Health</h2>
+        <div class="admin-health-grid">
+          <div class="admin-health-card">
+            <div class="admin-health-icon">🖥️</div>
+            <div class="admin-health-body">
+              <span class="admin-health-label">API Gateway</span>
+              <span class="admin-health-value" style="color: var(--success);">Online</span>
+            </div>
+          </div>
+          <div class="admin-health-card">
+            <div class="admin-health-icon">🤖</div>
+            <div class="admin-health-body">
+              <span class="admin-health-label">Claude MCP Service</span>
+              <span class="admin-health-value" style="color: var(--success);">Operational</span>
+            </div>
+          </div>
+          <div class="admin-health-card">
+            <div class="admin-health-icon">🗄️</div>
+            <div class="admin-health-body">
+              <span class="admin-health-label">BigQuery / Spanner</span>
+              <span class="admin-health-value" style="color: var(--success);">Healthy</span>
+            </div>
+          </div>
+          <div class="admin-health-card">
+            <div class="admin-health-icon">💾</div>
+            <div class="admin-health-body">
+              <span class="admin-health-label">Vite Dev Server</span>
+              <span class="admin-health-value">Active (Port 3000)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Actions Export Section -->
+    <section class="admin-footer-actions" style="margin-top: 12px;">
+      <button type="button" class="admin-footer-btn" id="exportCsvBtn"><span>📊</span>Export CSV Report</button>
+      <button type="button" class="admin-footer-btn" id="exportPdfBtn"><span>📄</span>Export PDF Report</button>
+      <button type="button" class="admin-footer-btn primary" id="refreshDataBtn"><span>🔄</span>Refresh All Analytics</button>
+    </section>
+
+  </div>
+
+  <!-- Toast Notification element -->
+  <div id="toast" class="toast"></div>
+
+<script src="../shared/constants.js?v=20260706"></script>
+<script src="../shared/utils.js?v=20260706"></script>
+<script src="../shared/mock-data.js?v=20260706"></script>
+<script src="js/analytics.js?v=20260706"></script>
+</body>
+</html>
