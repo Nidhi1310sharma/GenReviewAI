@@ -24,6 +24,11 @@ class Settings(BaseSettings):
     # --- Database ---
     database_url: str = "postgresql://genreview_user:genreview_pass@localhost:5432/genreview_db"
 
+    #---Supabase---
+    supabase_url: str = ""
+    supabase_anon_key: str = ""
+    supabase_service_role_key: str = ""
+
     # --- Auth (Module 2) ---
     jwt_secret_key: str = "change-this-to-a-long-random-string"
     jwt_algorithm: str = "HS256"
